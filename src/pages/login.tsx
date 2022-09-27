@@ -70,7 +70,7 @@ export const Login = ()=>{
     }
     return <div className="h-screen flex items-center flex-col mt-10 lg:mt-28">
         <Helmet>
-            <title>Login | Uber Eats</title>
+            <title>Login | Salad Peace</title>
         </Helmet>
             <div className="w-full max-w-screen-sm flex flex-col px-5 items-center">
             <img src={uberLogo} className="w-52 mb-10" alt="UberLogo"></img>

@@ -106,7 +106,7 @@ export const Order = () => {
   return (
     <div className="mt-32 container flex justify-center">
         <Helmet>
-            <title>Order #{params.id} | Uber Eats</title>
+            <title>Order #{params.id} | Salad Peace</title>
         </Helmet>
       <div className="border border-gray-800 w-full max-w-screen-sm flex flex-col justify-center">
         <h4 className="bg-gray-800 w-full py-5 text-white text-center text-xl">
