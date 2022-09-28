@@ -4,7 +4,6 @@ export const BUILDING_FRAGMENT = gql`
   fragment BuildingParts on Building {
     id
     name
-    coverImg
     category {
       name
     }
@@ -57,7 +56,7 @@ export const FULL_ORDER_FRAGMENT = gql`
     customer {
       email
     }
-    buiding {
+    building {
       name
     }
   }

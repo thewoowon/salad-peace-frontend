@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import { Restaurants } from "../pages/client/restaurants";
+import { Restaurants } from "../pages/client/buildings";
 import { Header } from "../components/header";
 import { useMe } from "../hooks/useMe";
 import { ConfirmEmail } from "../pages/user/confirm-email";
@@ -8,7 +8,7 @@ import { EditProfile } from "../pages/user/edit-profile";
 import { NotFound } from "../pages/404";
 import { Search } from "../pages/client/search";
 import { Category } from "../pages/client/category";
-import { Restaurant } from "../pages/client/restaurant";
+import { Restaurant } from "../pages/client/building";
 import { MyRestaurants } from "../pages/owner/my-restaurants";
 import { AddRestaurant } from "../pages/owner/add-restaurants";
 import { MyRestaurant } from "../pages/owner/my-restaurant";

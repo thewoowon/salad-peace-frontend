@@ -2,7 +2,7 @@ import { gql, useMutation ,useQuery } from "@apollo/client";
 import React, { useState } from "react";
 import { useParams,useNavigate } from "react-router-dom";
 import { Dish } from "../../components/dish";
-import { RESTAURANT_FRAGMENT,DISH_FRAGMENT } from "../../fragments";
+import { BUILDING_FRAGMENT, SALAD_FRAGMENT } from "../../fragments";
 import { restaurant, restaurantVariables } from "../../__generated__/restaurant";
 import { Helmet } from "react-helmet-async";
 import { CreateOrderItemInput } from "../../__generated__/globalTypes"
@@ -13,21 +13,21 @@ import {
 } from "../../__generated__/createOrder";
 
 
-const RESTAURANT_QUERY = gql`
-  query restaurant($input: RestaurantInput!) {
-    restaurant(input: $input) {
+const BUILDING_QUERY = gql`
+  query building($input: BuildingInput!) {
+    building(input: $input) {
       ok
       error
-      restaurant {
-        ...RestaurantParts
+      building {
+        ...BuildingParts
         menu {
-          ...DishParts
+          ...SaladParts
         }
       }
     }
   }
-  ${RESTAURANT_FRAGMENT}
-  ${DISH_FRAGMENT}
+  ${BUILDING_FRAGMENT}
+  ${SALAD_FRAGMENT}
 `;
 
 const CREATE_ORDER_MUTATION = gql`
@@ -43,11 +43,11 @@ const CREATE_ORDER_MUTATION = gql`
 export const Restaurant = () => {
     const params = useParams<{id:string}>();
     const { loading, data } = useQuery<restaurant, restaurantVariables>(
-      RESTAURANT_QUERY,
+      BUILDING_QUERY,
       {
         variables: {
           input: {
-            restaurantId: + (params.id ?? ""),
+            buildingId: + (params.id ?? ""),
           },
         },
       }
@@ -89,7 +89,7 @@ export const Restaurant = () => {
       const oldItem = getItem(dishId);
       if (oldItem) {
         const hasOption = Boolean(
-          oldItem.options?.find((aOption) => aOption.name == optionName)
+          oldItem.options?.find((aOption: { name: string; }) => aOption.name == optionName)
         );
         if (!hasOption) {
           removeFromOrder(dishId);
@@ -111,7 +111,7 @@ export const Restaurant = () => {
           {
             dishId,
             options: oldItem.options?.filter(
-              (option) => option.name !== optionName
+              (option: { name: string; }) => option.name !== optionName
             ),
           },
           ...current,
@@ -123,7 +123,7 @@ export const Restaurant = () => {
       item: CreateOrderItemInput,
       optionName: string
     ) => {
-      return item.options?.find((option) => option.name === optionName);
+      return item.options?.find((option: { name: string; }) => option.name === optionName);
     };
     const isOptionSelected = (dishId: number, optionName: string) => {
       const item = getItem(dishId);
@@ -209,7 +209,7 @@ export const Restaurant = () => {
           </div>
         )}
             <div className="w-full grid mt-16 md:grid-cols-3 gap-x-5 gap-y-10">
-              {data?.restaurant.restaurant?.menu.map((dish, index) => (
+              {data?.restaurant.restaurant?.menu.map((dish: { id: number; name: string; description: string; price: number; options: any[] | null | undefined; }, index: React.Key | null | undefined) => (
                 <Dish
                   isSelected={isSelected(dish.id)}
                   id={dish.id}

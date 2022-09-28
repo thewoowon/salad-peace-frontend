@@ -10,8 +10,8 @@ import { UserRole } from "../__generated__/globalTypes";
 import { createAccountMutation, createAccountMutationVariables } from "../__generated__/createAccountMutation";
 
 export const CREATE_ACCOUNT_MUTATION = gql`
-    mutation createAccountMutation($createAccountInput:CreateAccountInput!){ 
-        createAccount(input:$createAccountInput){
+    mutation createAccountMutation($buildingCode:String!,$createAccountInput:CreateAccountInput!){ 
+        createAccount(buildingCode:$buildingCode,input:$createAccountInput){
             ok,
             error
         }
