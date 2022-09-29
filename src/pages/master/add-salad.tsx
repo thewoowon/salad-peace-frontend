@@ -30,7 +30,7 @@ interface IForm {
   [key: string]: string;
 }
 
-export const AddDish = () => {
+export const AddSalad = () => {
   const { buildingId } = useParams<{buildingId:string}>();
   const navigate = useNavigate();
   const [createSaladMutation, { loading }] = useMutation<

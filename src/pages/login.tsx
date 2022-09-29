@@ -3,7 +3,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { FormError } from "../components/form-error";
 import { loginMutation, loginMutationVariables } from '../__generated__/loginMutation';
-import uberLogo from '../images/uberLogo.svg';
+import sp from '../images/sp.svg';
 import { Button } from "../components/button";
 import { Link } from "react-router-dom";
 import {Helmet} from 'react-helmet-async';
@@ -73,7 +73,7 @@ export const Login = ()=>{
             <title>Login | Salad Peace</title>
         </Helmet>
             <div className="w-full max-w-screen-sm flex flex-col px-5 items-center">
-            <img src={uberLogo} className="w-52 mb-10" alt="UberLogo"></img>
+            <img src={sp} className="w-52 mb-10" alt="SaladPeace"></img>
             <h4 className=" w-full font-medium text-left text-3xl">Welcome back</h4>
             <form  
                 className="grid gap-3 mt-5 w-full mb-5" 

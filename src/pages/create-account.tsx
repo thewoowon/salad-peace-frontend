@@ -2,7 +2,7 @@ import { gql, useMutation } from "@apollo/client";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { FormError } from "../components/form-error";
-import uberLogo from '../images/uberLogo.svg';
+import sp from '../images/sp.svg';
 import { Button } from "../components/button";
 import { Link, useNavigate } from "react-router-dom";
 import {Helmet} from 'react-helmet-async';
@@ -22,6 +22,8 @@ interface ICreateAccountForm{
     email:string;
     password:string;
     role:UserRole;
+    name:string;
+    buildingCode:string;
 }
 
 export const CreateAccount = ()=>{
@@ -46,14 +48,16 @@ export const CreateAccount = ()=>{
     const onSubmit = () =>{
         if(!loading)
         {
-            const {email,password,role} = getValues();
+            const {email,password,role,name,buildingCode} = getValues();
             createAccountMutation({
                 variables:{
                     createAccountInput:{
                         email:email,
                         password:password,
-                        role:role
-                    }
+                        role:role,
+                        name:name
+                    },
+                    buildingCode:buildingCode
                 }
             });
         }
@@ -63,9 +67,19 @@ export const CreateAccount = ()=>{
             <title>Create Account | Salad Peace</title>
         </Helmet>
             <div className="w-full max-w-screen-sm flex flex-col px-5 items-center">
-            <img src={uberLogo} className="w-52 mb-10" alt="UberLogo"></img>
+            <img src={sp} className="w-52 mb-10" alt="SaladPeace"></img>
             <h4 className=" w-full font-medium text-left text-3xl">Welcome back</h4>
             <form  className="grid gap-3 mt-5 w-full mb-5" onSubmit={handleSubmit(onSubmit)}>
+                <input 
+                    {...register("name",{required:"Name is required"})}
+                    type="name"
+                    placeholder="Name" 
+                    className="input transition-colors"></input>
+                {
+                    formState.errors.name?.message && (
+                        <FormError errorMessage={formState.errors.name?.message}></FormError>
+                    )
+                }
                 <input 
                     {...register("email",{required:"Email is required",pattern:/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/})}
                     type="email"
@@ -99,6 +113,16 @@ export const CreateAccount = ()=>{
                         
                     })}
                 </select>
+                <input 
+                    {...register("buildingCode",{required:"Building Code is required",minLength:10})}
+                    type="buildingCode"
+                    placeholder="Building Code" 
+                    className="input"></input>
+                {
+                    formState.errors.buildingCode?.message && (
+                        <FormError errorMessage={formState.errors.buildingCode?.message}></FormError>
+                    )
+                }
                 <Button canClick={formState.isValid} actionText={"Create Account"} loading={loading}></Button>
                 {
                     createAccountMutationResult?.createAccount.error &&(

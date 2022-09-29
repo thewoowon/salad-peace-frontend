@@ -119,7 +119,7 @@ export const Order = () => {
           <div className="border-t pt-5 border-gray-700">
             Prepared By:{" "}
             <span className="font-medium">
-              {data?.getOrder.order?.restaurant?.name}
+              {data?.getOrder.order?.building?.name}
             </span>
           </div>
           <div className="border-t pt-5 border-gray-700 ">
@@ -139,26 +139,18 @@ export const Order = () => {
               Status: {data?.getOrder.order?.status}
             </span>
           )}
-          {userData?.me.role === UserRole.Owner && (
+          {userData?.me.role === UserRole.Master && (
             <>
               {data?.getOrder.order?.status === OrderStatus.Pending && (
                 <button
-                  onClick={() => onButtonClick(OrderStatus.Cooking)}
+                  onClick={() => onButtonClick(OrderStatus.PickedUp)}
                   className="btn"
                 >
                   Accept Order
                 </button>
               )}
-              {data?.getOrder.order?.status === OrderStatus.Cooking && (
-                <button
-                  onClick={() => onButtonClick(OrderStatus.Cooked)}
-                  className="btn"
-                >
-                  Order Cooked
-                </button>
-              )}
-              {data?.getOrder.order?.status !== OrderStatus.Cooking &&
-                data?.getOrder.order?.status !== OrderStatus.Pending && (
+              {data?.getOrder.order?.status !== OrderStatus.Delivered &&
+                 (
                   <span className=" text-center mt-5 mb-3  text-2xl text-lime-600">
                     Status: {data?.getOrder.order?.status}
                   </span>
@@ -167,14 +159,6 @@ export const Order = () => {
           )}
           {userData?.me.role === UserRole.Delivery && (
             <>
-              {data?.getOrder.order?.status === OrderStatus.Cooked && (
-                <button
-                  onClick={() => onButtonClick(OrderStatus.PickedUp)}
-                  className="btn"
-                >
-                  Picked Up
-                </button>
-              )}
               {data?.getOrder.order?.status === OrderStatus.PickedUp && (
                 <button
                   onClick={() => onButtonClick(OrderStatus.Delivered)}
@@ -187,7 +171,7 @@ export const Order = () => {
           )}
           {data?.getOrder.order?.status === OrderStatus.Delivered && (
             <span className=" text-center mt-5 mb-3  text-2xl text-lime-600">
-              Thank you for using Uber Eats
+              Thank you for using Salad Peace
             </span>
           )}
         </div>
