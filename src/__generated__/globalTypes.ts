@@ -42,6 +42,7 @@ export interface CreateAccountInput {
 export interface CreateBuildingInput {
   name: string;
   address: string;
+  coverImg?: string | null;
   permanentWorker: number;
   buildingCode: string;
   categoryName: string;

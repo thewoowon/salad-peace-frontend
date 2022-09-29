@@ -9,6 +9,7 @@ export const BUILDING_FRAGMENT = gql`
     }
     address
     isPromoted
+    coverImg
   }
 `;
 

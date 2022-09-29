@@ -44,6 +44,7 @@ export interface myBuilding_myBuilding_building {
   category: myBuilding_myBuilding_building_category | null;
   address: string;
   isPromoted: boolean;
+  coverImg: string | null;
   menu: myBuilding_myBuilding_building_menu[];
   orders: myBuilding_myBuilding_building_orders[];
 }

@@ -148,7 +148,7 @@ export const MyBuilding = () => {
             ) : (
                 <div className="grid mt-16 md:grid-cols-3 gap-x-5 gap-y-10">
                   {data?.myBuilding.building?.menu.map((dish) => (
-                    <Dish
+                    <Salad
                       key={dish.id}
                       name={dish.name}
                       description={dish.description}
@@ -156,7 +156,7 @@ export const MyBuilding = () => {
                         {
 
                         }
-                      </Dish>
+                      </Salad>
                   ))}
                 </div>
               )}
@@ -180,7 +180,7 @@ export const MyBuilding = () => {
                     dy={-20}
                   />
                 }
-                data={data?.myRestaurant.restaurant?.orders.map((order) => ({
+                data={data?.myBuilding.building?.orders.map((order) => ({
                   x: order.createdAt,
                   y: order.total,
                 }))}

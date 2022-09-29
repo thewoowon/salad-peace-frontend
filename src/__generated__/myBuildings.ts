@@ -19,6 +19,7 @@ export interface myBuildings_myBuildings_buildings {
   category: myBuildings_myBuildings_buildings_category | null;
   address: string;
   isPromoted: boolean;
+  coverImg: string | null;
 }
 
 export interface myBuildings_myBuildings {

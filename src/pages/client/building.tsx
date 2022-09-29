@@ -40,7 +40,7 @@ const CREATE_ORDER_MUTATION = gql`
   }
 `;
 
-export const Restaurant = () => {
+export const Building = () => {
     const params = useParams<{id:string}>();
     const { loading, data } = useQuery<building, buildingVariables>(
       BUILDING_QUERY,
@@ -175,7 +175,7 @@ export const Restaurant = () => {
           <div
             className=" bg-gray-800 bg-center bg-cover py-48"
             style={{
-              backgroundImage: `url(${data?.building.building?.})`,
+              backgroundImage: `url(${data?.building.building?.coverImg})`,
             }}
           >
             <div className="bg-white w-3/12 py-8 pl-48">
@@ -184,7 +184,7 @@ export const Restaurant = () => {
                 {data?.building.building?.category?.name}
               </h5>
               <h6 className="text-sm font-light">
-                {data?.restaurant.restaurant?.address}
+                {data?.building.building?.address}
               </h6>
             </div>
           </div>
@@ -208,8 +208,8 @@ export const Restaurant = () => {
           </div>
         )}
             <div className="w-full grid mt-16 md:grid-cols-3 gap-x-5 gap-y-10">
-              {data?.restaurant.restaurant?.menu.map((dish: { id: number; name: string; description: string; price: number; options: any[] | null | undefined; }, index: React.Key | null | undefined) => (
-                <Dish
+              {data?.building.building?.menu.map((dish: { id: number; name: string; description: string; price: number; options: any[] | null | undefined; }, index: React.Key | null | undefined) => (
+                <Salad
                   isSelected={isSelected(dish.id)}
                   id={dish.id}
                   orderStarted={orderStarted}
@@ -222,9 +222,9 @@ export const Restaurant = () => {
                   addItemToOrder={addItemToOrder}
                   removeFromOrder={removeFromOrder}>
                     {dish.options?.map((option, index) => (
-                      <DishOption
+                      <SaladOption
                         key={index}
-                        dishId={dish.id}
+                        saladId={dish.id}
                         isSelected={isOptionSelected(dish.id, option.name)}
                         name={option.name}
                         extra={option.extra}
@@ -232,7 +232,7 @@ export const Restaurant = () => {
                         removeOptionFromItem={removeOptionFromItem}
                       />
                   ))}
-                  </Dish>
+                  </Salad>
               ))}
             </div>
           </div>

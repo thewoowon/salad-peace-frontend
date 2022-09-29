@@ -19,4 +19,5 @@ export interface BuildingParts {
   category: BuildingParts_category | null;
   address: string;
   isPromoted: boolean;
+  coverImg: string | null;
 }

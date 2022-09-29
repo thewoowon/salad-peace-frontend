@@ -37,6 +37,7 @@ export interface building_building_building {
   category: building_building_building_category | null;
   address: string;
   isPromoted: boolean;
+  coverImg: string | null;
   menu: building_building_building_menu[];
 }
 

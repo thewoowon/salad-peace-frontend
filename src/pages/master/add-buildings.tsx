@@ -27,6 +27,8 @@ interface IFormProps {
   address: string;
   categoryName: string;
   file:string;
+  permanentWorker: number;
+  buildingCode: string;
 }
 
 export const AddBuilding = () => {
@@ -34,11 +36,11 @@ export const AddBuilding = () => {
   const [imageUrl, setImageUrl] = useState("");
   const navigate = useNavigate();
   const onCompleted = (data: createBuilding) => {
-  const {
+    const {
       createBuilding: { ok,buildingId},
     } = data;
     if (ok) {
-      const { name, categoryName, address } = getValues();
+      const { name, categoryName, address, permanentWorker, buildingCode} = getValues();
       setUploading(false);
       const queryResult = client.readQuery({ query: MY_BUILDINGS_QUERY });
       client.writeQuery({
@@ -57,6 +59,8 @@ export const AddBuilding = () => {
                 id: buildingId,
                 isPromoted: false,
                 name,
+                permanentWorker:permanentWorker,
+                buildingCode:buildingCode,
                 __typename: "Building",
               },
               ...queryResult.myBuildings.buildings,
@@ -86,7 +90,7 @@ export const AddBuilding = () => {
   const onSubmit = async () => {
     try {
       setUploading(true);
-      const { file, name, categoryName, address } = getValues();
+      const { file, name, categoryName, address, permanentWorker, buildingCode } = getValues();
       const actualFile = file[0];
       const formBody = new FormData();
       formBody.append("file", actualFile);
@@ -104,6 +108,8 @@ export const AddBuilding = () => {
             categoryName,
             address,
             coverImg,
+            permanentWorker,
+            buildingCode
           },
         },
       });
@@ -112,7 +118,7 @@ export const AddBuilding = () => {
   return (
     <div className="container flex flex-col items-center mt-52">
       <Helmet>
-        <title>Add Building | Nuber Eats</title>
+        <title>Add Building | Salad Peace</title>
       </Helmet>
       <h1>Add Building</h1>
       <form onSubmit={handleSubmit(onSubmit)}
@@ -134,6 +140,18 @@ export const AddBuilding = () => {
           type="text"
           placeholder="Category Name"
           {...register("categoryName",{ required: "Category Name is required." })}
+        />
+        <input
+          className="input"
+          type="text"
+          placeholder="Permanent Worker"
+          {...register("permanentWorker",{ required: "Permanent Worker is required." })}
+        />
+        <input
+          className="input"
+          type="text"
+          placeholder="Building Code"
+          {...register("buildingCode",{ required: "Building Code is required." })}
         />
         <div>
           <input type={"file"} 

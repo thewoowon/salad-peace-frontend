@@ -21,6 +21,7 @@ export interface category_category_buildings {
   category: category_category_buildings_category | null;
   address: string;
   isPromoted: boolean;
+  coverImg: string | null;
 }
 
 export interface category_category_category {

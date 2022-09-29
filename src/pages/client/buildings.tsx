@@ -1,15 +1,15 @@
 import { gql, useQuery } from "@apollo/client";
 import React, { useState } from "react";
-import { restaurantsPageQuery, restaurantsPageQueryVariables } from "../../__generated__/restaurantsPageQuery";
+import { buildingsPageQuery, buildingsPageQueryVariables } from "../../__generated__/buildingsPageQuery";
 import { url } from "inspector";
-import { Restaurant } from "../../components/building";
+import { Building } from "../../components/building";
 import { useForm } from "react-hook-form";
 import { useNavigate,Link } from "react-router-dom";
 import { CATEGORY_FRAGMENT,BUILDING_FRAGMENT } from "../../fragments";
 import { Helmet } from "react-helmet-async";
 
 const BUILDINGS_QUERY = gql`
-  query buildingPageQuery($input: BuildingsInput!) {
+  query buildingsPageQuery($input: BuildingsInput!) {
     allCategories {
       ok
       error
@@ -35,11 +35,11 @@ interface IFormProps{
   searchTerm:string;
 }
 
-export const Restaurants = () => {
+export const Buildings = () => {
     const [page,setPage] = useState(1);
     const { data, loading } = useQuery<
-      restaurantsPageQuery,
-      restaurantsPageQueryVariables
+      buildingsPageQuery,
+      buildingsPageQueryVariables
     >(BUILDINGS_QUERY, {
       variables: {
         input: {
@@ -65,7 +65,7 @@ export const Restaurants = () => {
                 {...register("searchTerm",{required:true,minLength:3})}
                 type="Search"
                 className="input rounded-md border-0 w-3/4 md:w-3/12"
-                placeholder="Search restaurants..."
+                placeholder="Search buildings..."
                 />
             </form>
             {!loading && (
@@ -86,13 +86,13 @@ export const Restaurants = () => {
                         ))}
                     </div>
                     <div className="grid mt-16 md:grid-cols-3 gap-x-5 gap-y-10">
-                        {data?.restaurants.results?.map((restaurant: { id: React.Key | null | undefined; coverImg: string; name: string; category: { name: string | undefined; }; }) => (
-                            <Restaurant
-                            id={restaurant.id + ""}
-                            coverImg={restaurant.coverImg}
-                            name={restaurant.name}
-                            categoryName={restaurant.category?.name}
-                            key={restaurant.id}
+                        {data?.buildings.results?.map((building) => (
+                            <Building
+                            id={building.id + ""}
+                            coverImg={building.coverImg ? building.coverImg : ""}
+                            name={building.name}
+                            categoryName={building.category?.name}
+                            key={building.id}
                         />
                         ))}
                     </div>
@@ -108,9 +108,9 @@ export const Restaurants = () => {
                         <div></div>
                         )}
                         <span>
-                        Page {page} of {data?.restaurants.totalPages}
+                        Page {page} of {data?.buildings.totalPages}
                         </span>
-                        {page !== data?.restaurants.totalPages ? (
+                        {page !== data?.buildings.totalPages ? (
                         <button
                             onClick={onNextPageClick}
                             className="focus:outline-none font-medium text-2xl"

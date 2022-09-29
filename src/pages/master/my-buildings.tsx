@@ -40,13 +40,13 @@ export const MyBuildings = () =>{
           </>
         ):
         <div className="grid mt-16 md:grid-cols-3 gap-x-5 gap-y-10">
-            {data?.myBuildings.buildings.map((restaurant: { id: React.Key | null | undefined; coverImg: string; name: string; category: { name: string | undefined; }; }) => (
+            {data?.myBuildings.buildings.map((building) => (
                 <Building
-                id={restaurant.id + ""}
-                coverImg={restaurant.coverImg}
-                name={restaurant.name}
-                categoryName={restaurant.category?.name}
-                key={restaurant.id}
+                id={building.id + ""}
+                coverImg={building.coverImg ? building.coverImg : ""}
+                name={building.name}
+                categoryName={building.category?.name}
+                key={building.id}
             />
             ))}
         </div>

@@ -155,14 +155,14 @@ export const Dashboard = () => {
           ></GoogleMapReact>
       </div>
       <div className=" max-w-screen-sm mx-auto bg-white relative -top-10 shadow-lg py-8 px-5">
-        {coockedOrdersData?.cookedOrders.restaurant ? (
+        {coockedOrdersData?.cookedOrders.building ? (
           <>
             <h1 className="text-center  text-3xl font-medium">
               New Coocked Order
             </h1>
             <h1 className="text-center my-3 text-2xl font-medium">
               Pick it up soon @{" "}
-              {coockedOrdersData?.cookedOrders.restaurant?.name}
+              {coockedOrdersData?.cookedOrders.building?.name}
             </h1>
             <Link
               to={`/orders/${coockedOrdersData?.cookedOrders.id}`}

@@ -10,8 +10,8 @@ import {
   } from "../../__generated__/editProfile";
 
 const EDIT_PROFILE_MUTATION = gql`
-  mutation editProfile($buildingCode:String!,$input: EditProfileInput!) {
-    editProfile(buildingCode:$buildingCode,input: $input) {
+  mutation editProfile($input: EditProfileInput!,$buildingCode:String!) {
+    editProfile(input: $input, buildingCode:$buildingCode) {
       ok
       error
     }
@@ -21,6 +21,7 @@ const EDIT_PROFILE_MUTATION = gql`
 interface IFormProps {
   email?: string;
   password?: string;
+  buildingCode?: string;
 }
 
 export const EditProfile = () => {
@@ -65,13 +66,14 @@ export const EditProfile = () => {
     },
   });
   const onSubmit = () => {
-    const { email, password } = getValues();
+    const { email, password, buildingCode } = getValues();
     editProfile({
       variables: {
         input: {
           email,
           ...(password !== "" && { password }),
         },
+        buildingCode: buildingCode ? buildingCode : "",
       },
     });
   };
@@ -98,6 +100,12 @@ export const EditProfile = () => {
           className="input"
           type="password"
           placeholder="Password"
+        />
+        <input
+          {...register("buildingCode")}
+          className="input"
+          type="text"
+          placeholder="BuildingCode"
         />
         <Button
           loading={loading}
