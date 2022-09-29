@@ -110,7 +110,7 @@ export const MyBuilding = () => {
     if (subscriptionData?.pendingOrders.id) {
       navigate(`/orders/${subscriptionData.pendingOrders.id}`);
     }
-  }, [subscriptionData]);
+  }, [subscriptionData, navigate]);
   return (
     <div>
       <Helmet>

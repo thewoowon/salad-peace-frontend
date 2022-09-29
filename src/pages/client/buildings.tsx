@@ -1,7 +1,6 @@
 import { gql, useQuery } from "@apollo/client";
 import React, { useState } from "react";
 import { buildingsPageQuery, buildingsPageQueryVariables } from "../../__generated__/buildingsPageQuery";
-import { url } from "inspector";
 import { Building } from "../../components/building";
 import { useForm } from "react-hook-form";
 import { useNavigate,Link } from "react-router-dom";

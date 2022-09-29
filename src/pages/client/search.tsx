@@ -50,7 +50,7 @@ export const Search = () => {
         },
       },
     });
-  }, [state, navigate]);
+  }, [state, navigate,callQuery,searchTerm]);
   return (
     <h1>
       <Helmet>
