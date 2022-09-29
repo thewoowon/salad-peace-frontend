@@ -1,27 +1,27 @@
 import React from "react";
 
-interface IDishOptionProps {
+interface ISaladOptionProps {
   isSelected: boolean;
   name: string;
   extra?: number | null;
-  dishId: number;
+  saladId: number;
   addOptionToItem: (dishId: number, optionName: string) => void;
   removeOptionFromItem: (dishId: number, optionName: string) => void;
 }
 
-export const DishOption: React.FC<IDishOptionProps> = ({
+export const SaladOption: React.FC<ISaladOptionProps> = ({
   isSelected,
   name,
   extra,
   addOptionToItem,
   removeOptionFromItem,
-  dishId,
+  saladId,
 }) => {
   const onClick = (e:any) => {
     if (isSelected) {
-      removeOptionFromItem(dishId, name);
+      removeOptionFromItem(saladId, name);
     } else {
-      addOptionToItem(dishId, name);
+      addOptionToItem(saladId, name);
     }
     e.stopPropagation();
   };

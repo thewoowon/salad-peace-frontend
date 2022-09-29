@@ -6,18 +6,18 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "../../components/button";
 import { FormError } from "../../components/form-error";
 import {
-  createRestaurant,
-  createRestaurantVariables,
-} from "../../__generated__/createRestaurant";
+  createBuilding,
+  createBuildingVariables,
+} from "../../__generated__/createBuilding";
 import { CREATE_ACCOUNT_MUTATION } from "../create-account";
-import { MY_RESTAURANTS_QUERY } from "./my-restaurants";
+import { MY_BUILDINGS_QUERY } from "./my-buildings";
 
-const CREATE_RESTAURANT_MUTATION = gql`
-  mutation createRestaurant($input: CreateRestaurantInput!) {
-    createRestaurant(input: $input) {
+const CREATE_BUILDING_MUTATION = gql`
+  mutation createBuilding($input: CreateBuildingInput!) {
+    createBuilding(input: $input) {
       error
       ok
-      restaurantId
+      buildingId
     }
   }
 `;
@@ -29,24 +29,24 @@ interface IFormProps {
   file:string;
 }
 
-export const AddRestaurant = () => {
+export const AddBuilding = () => {
   const client = useApolloClient();
   const [imageUrl, setImageUrl] = useState("");
   const navigate = useNavigate();
-  const onCompleted = (data: createRestaurant) => {
+  const onCompleted = (data: createBuilding) => {
   const {
-      createRestaurant: { ok,restaurantId},
+      createBuilding: { ok,buildingId},
     } = data;
     if (ok) {
       const { name, categoryName, address } = getValues();
       setUploading(false);
-      const queryResult = client.readQuery({ query: MY_RESTAURANTS_QUERY });
+      const queryResult = client.readQuery({ query: MY_BUILDINGS_QUERY });
       client.writeQuery({
-        query: MY_RESTAURANTS_QUERY,
+        query: MY_BUILDINGS_QUERY,
         data: {
-          myRestaurants: {
-            ...queryResult.myRestaurants,
-            restaurants: [
+          myBuildings: {
+            ...queryResult.myBuildings,
+            buildings: [
               {
                 address,
                 category: {
@@ -54,12 +54,12 @@ export const AddRestaurant = () => {
                   __typename: "Category",
                 },
                 coverImg: imageUrl,
-                id: restaurantId,
+                id: buildingId,
                 isPromoted: false,
                 name,
-                __typename: "Restaurant",
+                __typename: "Building",
               },
-              ...queryResult.myRestaurants.restaurants,
+              ...queryResult.myBuildings.buildings,
             ],
           },
         },
@@ -67,12 +67,12 @@ export const AddRestaurant = () => {
       navigate("/");
     }
   };
-  const [createRestaurantMutation, { data }] = useMutation<
-    createRestaurant,
-    createRestaurantVariables
-    >(CREATE_RESTAURANT_MUTATION, {
+  const [createBuildingMutation, { data }] = useMutation<
+    createBuilding,
+    createBuildingVariables
+    >(CREATE_BUILDING_MUTATION, {
       onCompleted,
-      refetchQueries:[{query:MY_RESTAURANTS_QUERY}]
+      refetchQueries:[{query:MY_BUILDINGS_QUERY}]
     });
   const {
     register,
@@ -97,7 +97,7 @@ export const AddRestaurant = () => {
         })
       ).json();
       setImageUrl(coverImg);
-      createRestaurantMutation({
+      createBuildingMutation({
         variables: {
           input: {
             name,
@@ -112,9 +112,9 @@ export const AddRestaurant = () => {
   return (
     <div className="container flex flex-col items-center mt-52">
       <Helmet>
-        <title>Add Restaurant | Nuber Eats</title>
+        <title>Add Building | Nuber Eats</title>
       </Helmet>
-      <h1>Add Restaurant</h1>
+      <h1>Add Building</h1>
       <form onSubmit={handleSubmit(onSubmit)}
         className="grid max-w-screen-sm gap-3 mt-5 w-full mb-5">
         <input
@@ -143,10 +143,10 @@ export const AddRestaurant = () => {
         <Button
           loading={uploading}
           canClick={formState.isValid}
-          actionText="Create Restaurant"
+          actionText="Create Building"
         />
-        {data?.createRestaurant?.error && (
-          <FormError errorMessage={data.createRestaurant.error} />
+        {data?.createBuilding?.error && (
+          <FormError errorMessage={data.createBuilding.error} />
         )}
       </form>
     </div>

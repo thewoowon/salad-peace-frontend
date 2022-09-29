@@ -13,29 +13,29 @@ import {
   VictoryTooltip,
   VictoryVoronoiContainer,
 } from "victory";
-import { Dish } from "../../components/dish";
+import { Salad } from "../../components/salad";
 import {
-  DISH_FRAGMENT,
+  SALAD_FRAGMENT,
   ORDERS_FRAGMENT,
   FULL_ORDER_FRAGMENT,
-  RESTAURANT_FRAGMENT,
+  BUILDING_FRAGMENT,
 } from "../../fragments";
 import { useMe } from "../../hooks/useMe";
 import {
-  myRestaurant,
-  myRestaurantVariables,
-} from '../../__generated__/myRestaurant';
+  myBuilding,
+  myBuildingVariables,
+} from '../../__generated__/myBuilding';
 import { pendingOrders } from "../../__generated__/pendingOrders";
 
-export const MY_RESTAURANT_QUERY = gql`
-  query myRestaurant($input: MyRestaurantInput!) {
-    myRestaurant(input: $input) {
+export const MY_BUILDING_QUERY = gql`
+  query myBuilding($input: MyBuildingInput!) {
+    myBuilding(input: $input) {
       ok
       error
-      restaurant {
-        ...RestaurantParts
+      building {
+        ...BuildingParts
         menu {
-          ...DishParts
+          ...SaladParts
         }
         orders {
           ...OrderParts
@@ -43,8 +43,8 @@ export const MY_RESTAURANT_QUERY = gql`
       }
     }
   }
-  ${RESTAURANT_FRAGMENT}
-  ${DISH_FRAGMENT}
+  ${BUILDING_FRAGMENT}
+  ${SALAD_FRAGMENT}
   ${ORDERS_FRAGMENT}
 `;
 
@@ -70,10 +70,10 @@ interface IParams {
   id: string;
 }
 
-export const MyRestaurant = () => {
+export const MyBuilding = () => {
   const {id} = useParams<{id:string}>();
-  const { data } = useQuery<myRestaurant, myRestaurantVariables>(
-    MY_RESTAURANT_QUERY,
+  const { data } = useQuery<myBuilding, myBuildingVariables>(
+    MY_BUILDING_QUERY,
     {
         variables: {
             input:{
@@ -115,7 +115,7 @@ export const MyRestaurant = () => {
     <div>
       <Helmet>
         <title>
-          {data?.myRestaurant.restaurant?.name || "Loading..."} | Uber Eats
+          {data?.myBuilding.building?.name || "Loading..."} | Uber Eats
         </title>
         <script src="https://cdn.paddle.com/paddle/paddle.js"></script>
         <script type="text/javascript">
@@ -125,15 +125,15 @@ export const MyRestaurant = () => {
       <div
         className="  bg-gray-700  py-28 bg-center bg-cover"
         style={{
-          backgroundImage: `url(${data?.myRestaurant.restaurant?.coverImg})`,
+          backgroundImage: `url(${data?.myBuilding.building?.coverImg})`,
         }}
       ></div>
       <div className="container mt-10">
         <h2 className="text-4xl font-medium mb-10">
-          {data?.myRestaurant.restaurant?.name || "Loading..."}
+          {data?.myBuilding.building?.name || "Loading..."}
         </h2>
         <Link
-          to={`/restaurants/${id}/add-dish`}
+          to={`/buildings/${id}/add-salad`}
           className=" mr-8 text-white bg-gray-800 py-3 px-10"
         >
           Add Dish &rarr;
@@ -143,11 +143,11 @@ export const MyRestaurant = () => {
           Buy Promotion &rarr;
         </span>
         <div className="mt-10">
-          {data?.myRestaurant.restaurant?.menu.length === 0 ? (
+          {data?.myBuilding.building?.menu.length === 0 ? (
             <h4 className="text-xl mb-5">Please upload a dish!</h4>
             ) : (
                 <div className="grid mt-16 md:grid-cols-3 gap-x-5 gap-y-10">
-                  {data?.myRestaurant.restaurant?.menu.map((dish) => (
+                  {data?.myBuilding.building?.menu.map((dish) => (
                     <Dish
                       key={dish.id}
                       name={dish.name}

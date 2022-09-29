@@ -2,7 +2,7 @@ import { gql, useLazyQuery } from "@apollo/client";
 import React, { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { useLocation, useNavigate } from "react-router-dom";
-import { RESTAURANT_FRAGMENT } from "../../fragments";
+import { BUILDING_FRAGMENT } from "../../fragments";
 import {
   searchRestaurant,
   searchRestaurantVariables,
@@ -12,19 +12,19 @@ interface IState {
   searchTerm: string;
 }
 
-const SEARCH_RESTAURANT = gql`
-  query searchRestaurant($input: SearchRestaurantInput!) {
-    searchRestaurant(input: $input) {
+const SEARCH_BUILDING = gql`
+  query searchRestaurant($input: SearchBuildingInput!) {
+    searchBuilding(input: $input) {
       ok
       error
       totalPages
       totalResults
-      restaurants {
-        ...RestaurantParts
+      buildings {
+        ...BuildingParts
       }
     }
   }
-  ${RESTAURANT_FRAGMENT}
+  ${BUILDING_FRAGMENT}
 `;
 
 export const Search = () => {
@@ -35,7 +35,7 @@ export const Search = () => {
   const [callQuery, { loading, data, called }] = useLazyQuery<
     searchRestaurant,
     searchRestaurantVariables
-  >(SEARCH_RESTAURANT);
+  >(SEARCH_BUILDING);
 
   useEffect(() => {
     console.log(searchTerm);

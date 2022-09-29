@@ -1,11 +1,11 @@
 import { render } from "@testing-library/react";
 import React from "react";
-import { Restaurant } from "../restaurant";
+import { Building } from "../building";
 import { BrowserRouter as Router } from "react-router-dom";
 
-describe("<Restaurant />", () => {
+describe("<Building />", () => {
   it("renders OK with props", () => {
-    const restaurantProps = {
+    const buildingProps = {
       id: "1",
       name: "name",
       categoryName: "categoryName",
@@ -13,14 +13,14 @@ describe("<Restaurant />", () => {
     };
     const { getByText, container } = render(
       <Router>
-        <Restaurant {...restaurantProps} />
+        <Building {...buildingProps} />
       </Router>
     );
-    getByText(restaurantProps.name);
-    getByText(restaurantProps.categoryName);
+    getByText(buildingProps.name);
+    getByText(buildingProps.categoryName);
     expect(container.firstChild).toHaveAttribute(
       "href",
-      `/restaurants/${restaurantProps.id}`
+      `/buildings/${buildingProps.id}`
     );
   });
 });

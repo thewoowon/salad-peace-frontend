@@ -2,14 +2,14 @@ import { gql, useQuery } from "@apollo/client";
 import React, { useState } from "react";
 import { restaurantsPageQuery, restaurantsPageQueryVariables } from "../../__generated__/restaurantsPageQuery";
 import { url } from "inspector";
-import { Restaurant } from "../../components/restaurant";
+import { Restaurant } from "../../components/building";
 import { useForm } from "react-hook-form";
 import { useNavigate,Link } from "react-router-dom";
-import { CATEGORY_FRAGMENT,RESTAURANT_FRAGMENT } from "../../fragments";
+import { CATEGORY_FRAGMENT,BUILDING_FRAGMENT } from "../../fragments";
 import { Helmet } from "react-helmet-async";
 
-const RESTAURANTS_QUERY = gql`
-  query restaurantsPageQuery($input: RestaurantsInput!) {
+const BUILDINGS_QUERY = gql`
+  query buildingPageQuery($input: BuildingsInput!) {
     allCategories {
       ok
       error
@@ -17,17 +17,17 @@ const RESTAURANTS_QUERY = gql`
        ...CategoryParts
       }
     }
-    restaurants(input: $input) {
+    buildings(input: $input) {
       ok
       error
       totalPages
       totalResults
       results {
-        ...RestaurantParts
+        ...BuildingParts
       }
     }
   }
-  ${RESTAURANT_FRAGMENT}
+  ${BUILDING_FRAGMENT}
   ${CATEGORY_FRAGMENT}
 `;
 
@@ -40,7 +40,7 @@ export const Restaurants = () => {
     const { data, loading } = useQuery<
       restaurantsPageQuery,
       restaurantsPageQueryVariables
-    >(RESTAURANTS_QUERY, {
+    >(BUILDINGS_QUERY, {
       variables: {
         input: {
           page: page,
@@ -58,7 +58,7 @@ export const Restaurants = () => {
     return (
         <div>
           <Helmet>
-            <title>Home | Uber Eats</title>
+            <title>Home | Salad Peace</title>
           </Helmet>
             <form onSubmit={handleSubmit(onSearchSubmit)} className="bg-gray-800 w-full py-40 flex items-center justify-center">
                 <input
@@ -71,7 +71,7 @@ export const Restaurants = () => {
             {!loading && (
                 <div className="max-w-screen-2xl pb-20 mx-auto mt-8">
                     <div className="flex justify-around max-w-sm mx-auto ">
-                        {data?.allCategories.categories?.map((category,index) => (
+                        {data?.allCategories.categories?.map((category: { id: React.Key | null | undefined; slug: any; coverImg: any; name: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | null | undefined; },index: any) => (
                          <Link key={category.id} to={`/category/${category.slug}`}>
                           <div className="flex flex-col group items-center cursor-pointer">
                             <div
@@ -86,7 +86,7 @@ export const Restaurants = () => {
                         ))}
                     </div>
                     <div className="grid mt-16 md:grid-cols-3 gap-x-5 gap-y-10">
-                        {data?.restaurants.results?.map((restaurant) => (
+                        {data?.restaurants.results?.map((restaurant: { id: React.Key | null | undefined; coverImg: string; name: string; category: { name: string | undefined; }; }) => (
                             <Restaurant
                             id={restaurant.id + ""}
                             coverImg={restaurant.coverImg}

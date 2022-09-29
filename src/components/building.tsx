@@ -1,14 +1,14 @@
 import React from "react";
 import {Link} from "react-router-dom";
 
-interface IRestaurantProps {
+interface IBuildingProps {
   id: string;
   coverImg: string;
   name: string;
   categoryName?: string;
 }
 
-export const Restaurant: React.FC<IRestaurantProps> = ({
+export const Building: React.FC<IBuildingProps> = ({
   id,
   coverImg,
   name,

@@ -10,8 +10,8 @@ import {
   } from "../../__generated__/editProfile";
 
 const EDIT_PROFILE_MUTATION = gql`
-  mutation editProfile($input: EditProfileInput!) {
-    editProfile(input: $input) {
+  mutation editProfile($buildingCode:String!,$input: EditProfileInput!) {
+    editProfile(buildingCode:$buildingCode,input: $input) {
       ok
       error
     }

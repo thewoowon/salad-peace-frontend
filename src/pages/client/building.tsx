@@ -1,12 +1,12 @@
 import { gql, useMutation ,useQuery } from "@apollo/client";
 import React, { useState } from "react";
 import { useParams,useNavigate } from "react-router-dom";
-import { Dish } from "../../components/dish";
+import { Salad } from "../../components/salad";
 import { BUILDING_FRAGMENT, SALAD_FRAGMENT } from "../../fragments";
-import { restaurant, restaurantVariables } from "../../__generated__/restaurant";
+import { building, buildingVariables } from "../../__generated__/building";
 import { Helmet } from "react-helmet-async";
 import { CreateOrderItemInput } from "../../__generated__/globalTypes"
-import { DishOption } from "../../components/dish-option";
+import { SaladOption } from "../../components/salad-option";
 import {
   createOrder,
   createOrderVariables,
@@ -42,7 +42,7 @@ const CREATE_ORDER_MUTATION = gql`
 
 export const Restaurant = () => {
     const params = useParams<{id:string}>();
-    const { loading, data } = useQuery<restaurant, restaurantVariables>(
+    const { loading, data } = useQuery<building, buildingVariables>(
       BUILDING_QUERY,
       {
         variables: {
@@ -57,18 +57,18 @@ export const Restaurant = () => {
     const triggerStartOrder = () => {
       setOrderStarted(true);
     };
-    const getItem = (dishId: number) => {
-      return orderItems.find((order) => order.dishId === dishId);
+    const getItem = (saladId: number) => {
+      return orderItems.find((order) => order.saladId === saladId);
     };
-    const isSelected = (dishId: number) => {
-      return Boolean(getItem(dishId));
+    const isSelected = (saladId: number) => {
+      return Boolean(getItem(saladId));
     };
-    const addItemToOrder = (dishId: number) => {
-      if (isSelected(dishId)) {
+    const addItemToOrder = (saladId: number) => {
+      if (isSelected(saladId)) {
         return;
       }
       const createOrderItemInput:CreateOrderItemInput = {
-        dishId:dishId,
+        saladId:saladId,
         options:[]
       }
       setOrderItems((current) => [
@@ -76,40 +76,40 @@ export const Restaurant = () => {
         ,...current
       ]);
     };
-    const removeFromOrder = (dishId: number) => {
+    const removeFromOrder = (saladId: number) => {
       setOrderItems((current) =>
-        current.filter((dish) => dish.dishId !== dishId)
+        current.filter((salad) => salad.saladId !== saladId)
       );
     };
 
-    const addOptionToItem = (dishId: number, optionName: string) => {
-      if (!isSelected(dishId)) {
+    const addOptionToItem = (saladId: number, optionName: string) => {
+      if (!isSelected(saladId)) {
         return;
       }
-      const oldItem = getItem(dishId);
+      const oldItem = getItem(saladId);
       if (oldItem) {
         const hasOption = Boolean(
           oldItem.options?.find((aOption: { name: string; }) => aOption.name == optionName)
         );
         if (!hasOption) {
-          removeFromOrder(dishId);
+          removeFromOrder(saladId);
           setOrderItems((current) => [
-            { dishId, options: [{ name: optionName }, ...oldItem.options!] },
+            { saladId, options: [{ name: optionName }, ...oldItem.options!] },
             ...current,
           ]);
         }
       }
     };
-    const removeOptionFromItem = (dishId: number, optionName: string) => {
-      if (!isSelected(dishId)) {
+    const removeOptionFromItem = (saladId: number, optionName: string) => {
+      if (!isSelected(saladId)) {
         return;
       }
-      const oldItem = getItem(dishId);
+      const oldItem = getItem(saladId);
       if (oldItem) {
-        removeFromOrder(dishId);
+        removeFromOrder(saladId);
         setOrderItems((current) => [
           {
-            dishId,
+            saladId,
             options: oldItem.options?.filter(
               (option: { name: string; }) => option.name !== optionName
             ),
@@ -125,8 +125,8 @@ export const Restaurant = () => {
     ) => {
       return item.options?.find((option: { name: string; }) => option.name === optionName);
     };
-    const isOptionSelected = (dishId: number, optionName: string) => {
-      const item = getItem(dishId);
+    const isOptionSelected = (saladId: number, optionName: string) => {
+      const item = getItem(saladId);
       if (item) {
         return Boolean(getOptionFromItem(item, optionName));
       }
@@ -161,7 +161,6 @@ export const Restaurant = () => {
         createOrderMutation({
           variables: {
             input: {
-              restaurantId: +(params.id ?? "0") ,
               items: orderItems,
             },
           },
@@ -171,18 +170,18 @@ export const Restaurant = () => {
     return (
         <div>
           <Helmet>
-            <title>{data?.restaurant.restaurant?.name || ""} | Uber Eats</title>
+            <title>{data?.building.building?.name || ""} | Salad Peace</title>
           </Helmet>
           <div
             className=" bg-gray-800 bg-center bg-cover py-48"
             style={{
-              backgroundImage: `url(${data?.restaurant.restaurant?.coverImg})`,
+              backgroundImage: `url(${data?.building.building?.})`,
             }}
           >
             <div className="bg-white w-3/12 py-8 pl-48">
-              <h4 className="text-4xl mb-3">{data?.restaurant.restaurant?.name}</h4>
+              <h4 className="text-4xl mb-3">{data?.building.building?.name}</h4>
               <h5 className="text-sm font-light mb-2">
-                {data?.restaurant.restaurant?.category?.name}
+                {data?.building.building?.category?.name}
               </h5>
               <h6 className="text-sm font-light">
                 {data?.restaurant.restaurant?.address}

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import GoogleMapReact from "google-map-react";
-import googleMapReact from "google-map-react";
 import { gql, useSubscription,useMutation } from "@apollo/client";
 import { FULL_ORDER_FRAGMENT } from "../../fragments";
 import { coockedOrders } from "../../__generated__/coockedOrders";

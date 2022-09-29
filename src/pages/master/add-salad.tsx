@@ -5,14 +5,14 @@ import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "../../components/button";
 import {
-  createDish,
-  createDishVariables,
-} from "../../__generated__/createDish";
-import { MY_RESTAURANT_QUERY } from "./my-restaurant";
+  createSalad,
+  createSaladVariables,
+} from "../../__generated__/createSalad";
+import { MY_BUILDING_QUERY } from "./my-building";
 
-const CREATE_DISH_MUTATION = gql`
-  mutation createDish($input: CreateDishInput!) {
-    createDish(input: $input) {
+const CREATE_SALAD_MUTATION = gql`
+  mutation createSalad($input: CreateSaladInput!) {
+    createSalad(input: $input) {
       ok
       error
     }
@@ -20,7 +20,7 @@ const CREATE_DISH_MUTATION = gql`
 `;
 
 interface IParams {
-  restaurantId: string;
+  buildingId: string;
 }
 
 interface IForm {
@@ -31,18 +31,18 @@ interface IForm {
 }
 
 export const AddDish = () => {
-  const { restaurantId } = useParams<{restaurantId:string}>();
+  const { buildingId } = useParams<{buildingId:string}>();
   const navigate = useNavigate();
-  const [createDishMutation, { loading }] = useMutation<
-    createDish,
-    createDishVariables
-  >(CREATE_DISH_MUTATION, {
+  const [createSaladMutation, { loading }] = useMutation<
+    createSalad,
+    createSaladVariables
+  >(CREATE_SALAD_MUTATION, {
     refetchQueries: [
       {
-        query: MY_RESTAURANT_QUERY,
+        query: MY_BUILDING_QUERY,
         variables: {
           input: {
-            id: +(restaurantId ?? "") ,
+            id: +(buildingId ?? "") ,
           },
         },
       },
@@ -65,13 +65,13 @@ export const AddDish = () => {
     }));
     console.log(getValues());
     console.log(optionObjects);
-    createDishMutation({
+    createSaladMutation({
       variables: {
         input: {
           name:name,
           price: +price,
           description:description,
-          restaurantId: +(restaurantId ?? ""),
+          buildingId: +(buildingId ?? ""),
           options: optionObjects,
         },
       },

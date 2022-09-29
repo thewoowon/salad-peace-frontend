@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
-import { restaurant_restaurant_restaurant_menu_options } from "../__generated__/restaurant";
+import { building_building_building_menu_options } from "../__generated__/building";
 
-interface IDishProps {
+interface ISaladProps {
   id?: number;
   description: string;
   name: string;
@@ -9,13 +9,13 @@ interface IDishProps {
   isCustomer?: boolean;
   orderStarted?: boolean;
   isSelected?: boolean;
-  options?: restaurant_restaurant_restaurant_menu_options[] | null;
+  options?: building_building_building_menu_options[] | null;
   addItemToOrder?: (dishId: number) => void;
   removeFromOrder?: (dishId: number) => void;
   children: ReactNode;
 }
 
-export const Dish: React.FC<IDishProps> = ({
+export const Salad: React.FC<ISaladProps> = ({
   id = 0,
   description,
   name,
@@ -26,7 +26,7 @@ export const Dish: React.FC<IDishProps> = ({
   addItemToOrder,
   isSelected,
   removeFromOrder,
-  children:dishOptions,
+  children:saladOptions,
 }) => {
   const onClick = () => {
     if (orderStarted) {
@@ -64,8 +64,8 @@ export const Dish: React.FC<IDishProps> = ({
       <span>${price}</span>
       {isCustomer && options && options?.length !== 0 && (
         <div>
-          <h5 className="mt-8 mb-3 font-medium">Dish Options:</h5>
-          <div className="grid gap-2  justify-start">{dishOptions}</div>
+          <h5 className="mt-8 mb-3 font-medium">Salad Options:</h5>
+          <div className="grid gap-2  justify-start">{saladOptions}</div>
         </div>
       )}
     </div>
