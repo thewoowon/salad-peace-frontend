@@ -5,6 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useMe } from "../hooks/useMe";
 import saladPeaceLogo from "../images/saladPeace_2.svg";
 import { useForm } from "react-hook-form";
+import { Timer } from "./timer";
+import loginOut from "../images/loginOut.svg";
 
 interface IFormProps{
   searchTerm:string;
@@ -39,9 +41,12 @@ export const Header: React.FC = () => {
                 placeholder="Search buildings..."
                 />
             </form>
-            <span className="text-xs absolute right-0">
+            <span className="text-xs absolute right-0 flex justify-center items-center">
+              <div>
+                <Timer></Timer>
+              </div>
               <Link to="/edit-profile">
-                <FontAwesomeIcon icon={faUser} className="text-3xl" />
+                <img src={loginOut} className="w-12 h-12" alt="logOut"></img>
               </Link>
             </span>
           </div>

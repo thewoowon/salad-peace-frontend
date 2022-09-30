@@ -16,6 +16,7 @@ import { AddSalad } from "../pages/master/add-salad";
 import { Order } from "../pages/order";
 import { Dashboard } from "../pages/driver/dashboard";
 import { UserRole } from "../__generated__/globalTypes";
+import { MutatingDots } from 'react-loader-spinner';
 
 const clientRoutes = [
   {
@@ -52,10 +53,23 @@ const driverRoutes = [{ path: "/", component: <Dashboard></Dashboard> }];
 
 export const LoggedInRouter = () => {
   const { data, loading, error } = useMe();
+  console.log(data);
   if (!data || loading || error) {
     return (
       <div className="h-screen flex justify-center items-center">
-        <span className="font-medium text-xl tracking-wide">...Loading</span>
+        <span className="font-medium text-xl tracking-wide">
+        <MutatingDots 
+          height="120"
+          width="120"
+          color="rgb(74 222 128)"
+          secondaryColor= 'rgb(239 68 68)'
+          radius='12.5'
+          ariaLabel="mutating-dots-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible={true}
+        />
+        </span>
       </div>
     );
   }

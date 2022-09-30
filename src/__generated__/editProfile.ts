@@ -20,6 +20,6 @@ export interface editProfile {
 }
 
 export interface editProfileVariables {
-  buildingCode: string;
   input: EditProfileInput;
+  buildingCode: string;
 }
