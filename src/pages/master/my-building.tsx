@@ -115,7 +115,7 @@ export const MyBuilding = () => {
     <div>
       <Helmet>
         <title>
-          {data?.myBuilding.building?.name || "Loading..."} | Uber Eats
+          {data?.myBuilding.building?.name || "Loading..."} - 샐러드피스
         </title>
         <script src="https://cdn.paddle.com/paddle/paddle.js"></script>
         <script type="text/javascript">

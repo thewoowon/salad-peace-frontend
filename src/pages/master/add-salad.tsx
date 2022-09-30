@@ -90,7 +90,7 @@ export const AddSalad = () => {
   return (
     <div className="container flex flex-col items-center mt-52">
       <Helmet>
-        <title>Add Dish | Uber Eats</title>
+        <title>샐러드 주문하기 -샐러드피스</title>
       </Helmet>
       <h4 className="font-semibold text-2xl mb-3">Add Dish</h4>
       <form

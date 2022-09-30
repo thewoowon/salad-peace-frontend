@@ -80,7 +80,7 @@ export const EditProfile = () => {
   return (
     <div className="mt-52 flex flex-col justify-center items-center">
         <Helmet>
-            <title>Edit Email | Uber Eats</title>
+            <title>회원 정보 수정 - 샐러드피스</title>
         </Helmet>
       <h4 className="font-semibold text-2xl mb-3">Edit Profile</h4>
       <form

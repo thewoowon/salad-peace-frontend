@@ -24,7 +24,7 @@ export const MyBuildings = () =>{
   return (
     <div>
       <Helmet>
-        <title>My Buildings | Salad Peace</title>
+        <title>나의 빌딩 - 샐러드피스</title>
       </Helmet>
       <div className="max-w-screen-2xl mx-auto mt-32">
         <h2 className="text-4xl font-medium mb-10">My Buildings</h2>

@@ -54,7 +54,7 @@ export const Search = () => {
   return (
     <h1>
       <Helmet>
-        <title>Home | Uber Eats</title>
+        <title>샐러드에 평화를 - 샐러드피스</title>
       </Helmet>
       Search Page!
     </h1>

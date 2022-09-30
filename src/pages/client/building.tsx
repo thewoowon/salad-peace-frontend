@@ -170,7 +170,7 @@ export const Building = () => {
     return (
         <div>
           <Helmet>
-            <title>{data?.building.building?.name || ""} | Salad Peace</title>
+            <title>{data?.building.building?.name || ""} - 샐러드피스</title>
           </Helmet>
           <div
             className=" bg-gray-800 bg-center bg-cover py-48"

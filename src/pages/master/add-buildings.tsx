@@ -118,7 +118,7 @@ export const AddBuilding = () => {
   return (
     <div className="container flex flex-col items-center mt-52">
       <Helmet>
-        <title>Add Building | Salad Peace</title>
+        <title>빌딩 추가하기 - 샐러드피스</title>
       </Helmet>
       <h1>Add Building</h1>
       <form onSubmit={handleSubmit(onSubmit)}

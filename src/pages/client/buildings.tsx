@@ -47,18 +47,30 @@ export const Buildings = () => {
     return (
         <div>
           <Helmet>
-            <title>Home | Salad Peace</title>
+            <title>샐러드에 평화를 - 샐러드피스</title>
           </Helmet>
-            
+            <div className="flex justify-center items-center h-96 max-w-screen-xl m-auto">
+              <div className="flex justify-center items-center h-full w-6/12">
+                <p>Map</p>
+              </div>
+              <div className="flex justify-center items-center h-full w-6/12">
+                <div>
+                  <p>{"우원님!"}</p>
+                  <p>{"현재 파크원에 남아있는 샐러드에요."}</p>
+                  <p>54 개</p>
+                  <button>바로 주문하기</button>
+                </div>
+              </div>
+            </div>
             {!loading && (
                 <div className="max-w-screen-2xl pb-20 mx-auto mt-8">
                     <div className="flex justify-around max-w-sm mx-auto ">
-                        {data?.allCategories.categories?.map((category: { id: React.Key | null | undefined; slug: any; coverImg: any; name: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | null | undefined; },index: any) => (
-                         <Link key={category.id} to={`/category/${category.slug}`}>
+                        {data?.allCategories.categories?.map((category,index) => (
+                         <Link key={category.id} to={`/category/${category.slug}`} className="mx-2">
                           <div className="flex flex-col group items-center cursor-pointer">
                             <div
                               className=" w-16 h-16 bg-cover group-hover:bg-gray-100 rounded-full"
-                              style={{ backgroundImage: `url(/images/dishImages/${category.coverImg}.png)` }}
+                              style={{ backgroundImage: `url(${category.coverImg})` }}
                             ></div>
                             <span className="mt-1 text-sm text-center font-medium">
                               {category.name}
