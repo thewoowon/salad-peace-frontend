@@ -12,10 +12,10 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
-  <ApolloProvider client={client}>
+    <ApolloProvider client={client}>
       <HelmetProvider>
         <BrowserRouter>
-          <App />
+         <App></App>
         </BrowserRouter>
       </HelmetProvider>
     </ApolloProvider>

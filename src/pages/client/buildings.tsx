@@ -30,10 +30,6 @@ const BUILDINGS_QUERY = gql`
   ${CATEGORY_FRAGMENT}
 `;
 
-interface IFormProps{
-  searchTerm:string;
-}
-
 export const Buildings = () => {
     const [page,setPage] = useState(1);
     const { data, loading } = useQuery<
@@ -48,25 +44,12 @@ export const Buildings = () => {
     });
     const onNextPageClick = () => setPage((current) => current + 1);
     const onPrevPageClick = () => setPage((current) => current - 1);
-    const {register,handleSubmit,getValues} = useForm<IFormProps>();
-    const navigate = useNavigate();
-    const onSearchSubmit = () =>{
-      const searchTerm = getValues();
-      navigate("/search",{state:searchTerm});
-    }
     return (
         <div>
           <Helmet>
             <title>Home | Salad Peace</title>
           </Helmet>
-            <form onSubmit={handleSubmit(onSearchSubmit)} className="bg-gray-800 w-full py-40 flex items-center justify-center">
-                <input
-                {...register("searchTerm",{required:true,minLength:3})}
-                type="Search"
-                className="input rounded-md border-0 w-3/4 md:w-3/12"
-                placeholder="Search buildings..."
-                />
-            </form>
+            
             {!loading && (
                 <div className="max-w-screen-2xl pb-20 mx-auto mt-8">
                     <div className="flex justify-around max-w-sm mx-auto ">

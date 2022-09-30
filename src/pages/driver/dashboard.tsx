@@ -67,74 +67,74 @@ export const Dashboard = () => {
               }
             ); */
         }
-      }, [driverCoords.lat, driverCoords.lng, map, maps]);
+      }, [driverCoords.lat, driverCoords.lng, map, maps]
+    );
     const onApiLoaded = ({ map, maps }: { map: any; maps: any }) => {
       map.panTo(new maps.LatLng(driverCoords.lat, driverCoords.lng));
         setMap(map);
         setMaps(maps);
     }
-      const { data: coockedOrdersData } = useSubscription<coockedOrders>(
-        COOCKED_ORDERS_SUBSCRIPTION
-      );
-      useEffect(() => {
-        if (coockedOrdersData?.cookedOrders.id) {
-          
-            if (map) {
-              const directionsService = new google.maps.DirectionsService();
-              const directionsRenderer = new google.maps.DirectionsRenderer({
-                polylineOptions: {
-                  strokeColor: "#000",
-                  strokeOpacity: 1,
-                  strokeWeight: 5,
-                },
-              });
-              directionsRenderer.setMap(map);
-              directionsService.route(
-                {
-                  origin: {
-                    location: new google.maps.LatLng(
-                      driverCoords.lat,
-                      driverCoords.lng
-                    ),
-                  },
-                  destination: {
-                    location: new google.maps.LatLng(
-                      driverCoords.lat + 0.05,
-                      driverCoords.lng + 0.05
-                    ),
-                  },
-                  travelMode: google.maps.TravelMode.DRIVING,
-                },
-                (result) => {
-                  directionsRenderer.setDirections(result);
-                }
-              );
-            
-          };
-        }
-      }, [coockedOrdersData, driverCoords.lat, driverCoords.lng, map]);
-
-      const navigate = useNavigate();
-        const onCompleted = (data: takeOrder) => {
-            if (data.takeOrder.ok) {
-                navigate(`/orders/${coockedOrdersData?.cookedOrders.id}`);
-            }
-        };
-        const [takeOrderMutation] = useMutation<takeOrder, takeOrderVariables>(
-            TAKE_ORDER_MUTATION,
-            {
-            onCompleted,
-            }
-        );
-        const triggerMutation = (orderId: number) => {
-            takeOrderMutation({
-            variables: {
-                input: {
-                id: orderId,
-                },
-            },
+    const { data: coockedOrdersData } = useSubscription<coockedOrders>(
+      COOCKED_ORDERS_SUBSCRIPTION
+    );
+    useEffect(() => {
+      if (coockedOrdersData?.cookedOrders.id) {
+          if (map) {
+            const directionsService = new google.maps.DirectionsService();
+            const directionsRenderer = new google.maps.DirectionsRenderer({
+              polylineOptions: {
+                strokeColor: "#000",
+                strokeOpacity: 1,
+                strokeWeight: 5,
+              },
             });
+            directionsRenderer.setMap(map);
+            directionsService.route(
+              {
+                origin: {
+                  location: new google.maps.LatLng(
+                    driverCoords.lat,
+                    driverCoords.lng
+                  ),
+                },
+                destination: {
+                  location: new google.maps.LatLng(
+                    driverCoords.lat + 0.05,
+                    driverCoords.lng + 0.05
+                  ),
+                },
+                travelMode: google.maps.TravelMode.DRIVING,
+              },
+              (result) => {
+                directionsRenderer.setDirections(result);
+              }
+            );
+          
         };
+      }
+    }, [coockedOrdersData, driverCoords.lat, driverCoords.lng, map]);
+
+    const navigate = useNavigate();
+    const onCompleted = (data: takeOrder) => {
+        if (data.takeOrder.ok) {
+            navigate(`/orders/${coockedOrdersData?.cookedOrders.id}`);
+        }
+    };
+    const [takeOrderMutation] = useMutation<takeOrder, takeOrderVariables>(
+        TAKE_ORDER_MUTATION,
+        {
+        onCompleted,
+        }
+    );
+    const triggerMutation = (orderId: number) => {
+        takeOrderMutation({
+        variables: {
+            input: {
+            id: orderId,
+            },
+        },
+        });
+    };
   return (
     <div>
       <div

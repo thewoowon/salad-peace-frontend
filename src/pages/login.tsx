@@ -117,7 +117,7 @@ export const Login = ()=>{
                 }
             </form>
             <div>
-                New to Uber? <Link to={"/create-account"} className="text-green-600 hover:underline">Create an Account</Link>
+                New to SaladPeace? <Link to={"/create-account"} className="text-green-600 hover:underline">Create an Account</Link>
             </div>
         </div>
     </div>

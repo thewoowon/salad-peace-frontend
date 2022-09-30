@@ -4,7 +4,6 @@ import {
   makeVar,
   createHttpLink,
   split,
-  HttpLink,
 } from "@apollo/client";
 import { LOCALSTORAGE_TOKEN } from "./constant";
 import { setContext } from "@apollo/client/link/context";

@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { Buildings } from "../pages/client/buildings";
 import { Header } from "../components/header";
 import { useMe } from "../hooks/useMe";
@@ -74,7 +74,7 @@ export const LoggedInRouter = () => {
             );
           })}
         {data.me.role === UserRole.Master &&
-          buildingRoutes.map((route, iter) => {
+          buildingRoutes.map((route) => {
             return (
               <Route
                 path={route.path}

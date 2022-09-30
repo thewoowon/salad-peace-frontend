@@ -50,7 +50,6 @@ interface IParams {
 export const Order = () => {
   const params = useParams<{id:string}>();
   const { data: userData } = useMe();
-  console.log(userData);
   const [editOrderMutation] = useMutation<editOrder, editOrderVariables>(
     EDIT_ORDER
   );
@@ -64,7 +63,6 @@ export const Order = () => {
       },
     }
   );
-  console.log(data);
   useEffect(() => {
     if (data?.getOrder.ok) {
       subscribeToMore({
