@@ -132,7 +132,7 @@ export const Buildings = () => {
               </div>
             </div>
             <div className="h-96 flex justify-center items-center bg-green-300">
-              <p className="text-5xl text-white font-bold ">샐러드피스는 전국에 <span className="text-red-400">107</span>개의 빌딩과 함께하고 있어요<div className=""></div></p>
+              <p className="text-5xl text-white font-bold ">샐러드피스는 전국 <span className="text-red-400">107</span>개의 빌딩과 함께하고 있어요<div className=""></div></p>
             </div>
             {!loading && (
                 <div className="max-w-screen-2xl pb-20 mx-auto mt-12">

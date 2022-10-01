@@ -14,7 +14,7 @@ export const Building: React.FC<IBuildingProps> = ({
   name,
   categoryName,
 }) => (
-  <Link to={`/category/${id}`} className="rounded-lg shadow-md bg-white">
+  <Link to={`/buildings/${id}`} className="rounded-lg shadow-md bg-white">
     <div className="flex flex-col">
       <div
         style={{ backgroundImage: `url(${coverImg})` }}
