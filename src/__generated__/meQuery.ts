@@ -13,7 +13,11 @@ export interface meQuery_me_building {
   __typename: "Building";
   id: number;
   name: string;
-  address: string;
+}
+
+export interface meQuery_me_category {
+  __typename: "Category";
+  id: number;
 }
 
 export interface meQuery_me {
@@ -24,6 +28,7 @@ export interface meQuery_me {
   verified: boolean;
   name: string;
   building: meQuery_me_building | null;
+  category: meQuery_me_category | null;
 }
 
 export interface meQuery {

@@ -16,6 +16,7 @@ export enum OrderStatus {
 export enum UserRole {
   Client = "Client",
   Delivery = "Delivery",
+  Manager = "Manager",
   Master = "Master",
 }
 

@@ -10,13 +10,13 @@ interface IBuildingProps {
   categoryName?: string;
 }
 
-export const Building: React.FC<IBuildingProps> = ({
+export const AreaBuilding: React.FC<IBuildingProps> = ({
   id,
   coverImg,
   name,
   categoryName,
 }) => (
-  <Link to={`/buildings/${id}`} className="rounded-lg shadow-md bg-white" 
+  <Link to={`/area-buildings/${id}`} className="rounded-lg shadow-md bg-white" 
   css={css`
   transition:all 0.2s ease-in-out;
   &:hover {

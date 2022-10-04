@@ -22,14 +22,15 @@ import {
 } from "../../fragments";
 import { useMe } from "../../hooks/useMe";
 import {
-  myBuilding,
-  myBuildingVariables,
-} from '../../__generated__/myBuilding';
+  myAreaBuilding,
+  myAreaBuildingVariables,
+} from '../../__generated__/myAreaBuilding';
 import { pendingOrders } from "../../__generated__/pendingOrders";
+import {CREATE_PAYMENT_MUTATION, PENDING_ORDERS_SUBSCRIPTION} from "../master/my-building";
 
-export const MY_BUILDING_QUERY = gql`
-  query myBuilding($input: MyBuildingInput!) {
-    myBuilding(input: $input) {
+export const MY_AREA_BUILDING_QUERY = gql`
+  query myAreaBuilding($input: MyBuildingInput!) {
+    myAreaBuilding(input: $input) {
       ok
       error
       building {
@@ -48,32 +49,14 @@ export const MY_BUILDING_QUERY = gql`
   ${ORDERS_FRAGMENT}
 `;
 
-export const CREATE_PAYMENT_MUTATION = gql`
-  mutation createPayment($input: CreatePaymentInput!) {
-    createPayment(input: $input) {
-      ok
-      error
-    }
-  }
-`;
-
-export const PENDING_ORDERS_SUBSCRIPTION = gql`
-  subscription pendingOrders {
-    pendingOrders {
-      ...FullOrderParts
-    }
-  }
-  ${FULL_ORDER_FRAGMENT}
-`;
-
 interface IParams {
   id: string;
 }
 
-export const MyBuilding = () => {
+export const MyAreaBuilding = () => {
   const {id} = useParams<{id:string}>();
-  const { data } = useQuery<myBuilding, myBuildingVariables>(
-    MY_BUILDING_QUERY,
+  const { data } = useQuery<myAreaBuilding, myAreaBuildingVariables>(
+    MY_AREA_BUILDING_QUERY,
     {
         variables: {
             input:{
@@ -115,7 +98,7 @@ export const MyBuilding = () => {
     <div>
       <Helmet>
         <title>
-          {data?.myBuilding.building?.name || "Loading..."} - 샐러드피스
+          {data?.myAreaBuilding.building?.name || "Loading..."} - 샐러드피스
         </title>
         <script src="https://cdn.paddle.com/paddle/paddle.js"></script>
         <script type="text/javascript">
@@ -125,37 +108,34 @@ export const MyBuilding = () => {
       <div
         className="  bg-gray-700  py-28 bg-center bg-cover"
         style={{
-          backgroundImage: `url(${data?.myBuilding.building?.coverImg})`,
+          backgroundImage: `url(${data?.myAreaBuilding.building?.coverImg})`,
         }}
       ></div>
       <div className="container mt-10">
         <h2 className="text-4xl font-medium mb-10">
-          {data?.myBuilding.building?.name || "Loading..."}
+          {data?.myAreaBuilding.building?.name || "Loading..."}
         </h2>
         <Link
           to={`/buildings/${id}/add-salad`}
           className=" mr-8 text-white bg-gray-800 py-3 px-10"
         >
-          Add Dish &rarr;
+          Add Salad &rarr;
         </Link>
         <span className="cursor-pointer text-white bg-lime-700 py-3 px-10"
         onClick={openCheckout}>
           Buy Promotion &rarr;
         </span>
         <div className="mt-10">
-          {data?.myBuilding.building?.menu.length === 0 ? (
+          {data?.myAreaBuilding.building?.menu.length === 0 ? (
             <h4 className="text-xl mb-5">Please upload a dish!</h4>
             ) : (
                 <div className="grid mt-16 md:grid-cols-3 gap-x-5 gap-y-10">
-                  {data?.myBuilding.building?.menu.map((dish) => (
+                  {data?.myAreaBuilding.building?.menu.map((salad) => (
                     <Salad
-                      key={dish.id}
-                      name={dish.name}
-                      description={dish.description}
-                      price={dish.price}>
-                        {
-
-                        }
+                      key={salad.id}
+                      name={salad.name}
+                      description={salad.description}
+                      price={salad.price}>
                       </Salad>
                   ))}
                 </div>
@@ -180,7 +160,7 @@ export const MyBuilding = () => {
                     dy={-20}
                   />
                 }
-                data={data?.myBuilding.building?.orders.map((order) => ({
+                data={data?.myAreaBuilding.building?.orders.map((order) => ({
                   x: order.createdAt,
                   y: order.total,
                 }))}

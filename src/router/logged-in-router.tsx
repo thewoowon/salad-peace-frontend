@@ -17,6 +17,10 @@ import { Order } from "../pages/order";
 import { Dashboard } from "../pages/driver/dashboard";
 import { UserRole } from "../__generated__/globalTypes";
 import { MutatingDots } from 'react-loader-spinner';
+import { MyAreaBuildings } from "../pages/manager/my-area-buildings";
+import { AddAreaBuilding } from "../pages/manager/add-area-buildings";
+import { MyAreaBuilding } from "../pages/manager/my-area-building";
+import { AddAreaSalad } from "../pages/manager/add-area-salad";
 
 const clientRoutes = [
   {
@@ -49,6 +53,13 @@ const buildingRoutes = [
   { path: "/buildings/:id", component: <MyBuilding></MyBuilding> },
   { path: "/buildings/:buildingId/add-salad", component: <AddSalad></AddSalad> },
 ];
+const managerRoutes = [
+  { path: "/", component: <MyAreaBuildings></MyAreaBuildings> },
+  { path: "/add-area-building", component: <AddAreaBuilding></AddAreaBuilding> },
+  { path: "/area-buildings/:id", component: <MyAreaBuilding></MyAreaBuilding> },
+  { path: "/area-buildings/:buildingId/add-salad", component: <AddAreaSalad></AddAreaSalad> },
+]
+
 const driverRoutes = [{ path: "/", component: <Dashboard></Dashboard> }];
 
 export const LoggedInRouter = () => {
@@ -107,6 +118,16 @@ export const LoggedInRouter = () => {
               ></Route>
             );
           })}
+        {data.me.role === UserRole.Manager &&
+        managerRoutes.map((route) => {
+          return (
+            <Route
+              path={route.path}
+              key={route.path}
+              element={route.component}
+            ></Route>
+          );
+        })}
         {commonRoutes.map((route) => {
           return (
             <Route

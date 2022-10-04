@@ -10,17 +10,8 @@ import {
   createBuildingVariables,
 } from "../../__generated__/createBuilding";
 import { CREATE_ACCOUNT_MUTATION } from "../create-account";
-import { MY_BUILDINGS_QUERY } from "./my-buildings";
-
-export const CREATE_BUILDING_MUTATION = gql`
-  mutation createBuilding($input: CreateBuildingInput!) {
-    createBuilding(input: $input) {
-      error
-      ok
-      buildingId
-    }
-  }
-`;
+import { CREATE_BUILDING_MUTATION } from "../master/add-buildings";
+import { MY_AREA_BUILDINGS_QUERY } from "./my-area-buildings";
 
 interface IFormProps {
   name: string;
@@ -31,7 +22,7 @@ interface IFormProps {
   buildingCode: string;
 }
 
-export const AddBuilding = () => {
+export const AddAreaBuilding = () => {
   const client = useApolloClient();
   const [imageUrl, setImageUrl] = useState("");
   const navigate = useNavigate();
@@ -42,12 +33,12 @@ export const AddBuilding = () => {
     if (ok) {
       const { name, categoryName, address, permanentWorker, buildingCode} = getValues();
       setUploading(false);
-      const queryResult = client.readQuery({ query: MY_BUILDINGS_QUERY });
+      const queryResult = client.readQuery({ query: MY_AREA_BUILDINGS_QUERY });
       client.writeQuery({
-        query: MY_BUILDINGS_QUERY,
+        query: MY_AREA_BUILDINGS_QUERY,
         data: {
-          myBuildings: {
-            ...queryResult.myBuildings,
+          myAreaBuildings: {
+            ...queryResult.myAreaBuildings,
             buildings: [
               {
                 address,
@@ -63,7 +54,7 @@ export const AddBuilding = () => {
                 buildingCode:buildingCode,
                 __typename: "Building",
               },
-              ...queryResult.myBuildings.buildings,
+              ...queryResult.myAreaBuildings.buildings,
             ],
           },
         },
@@ -76,7 +67,7 @@ export const AddBuilding = () => {
     createBuildingVariables
     >(CREATE_BUILDING_MUTATION, {
       onCompleted,
-      refetchQueries:[{query:MY_BUILDINGS_QUERY}]
+      refetchQueries:[{query:MY_AREA_BUILDINGS_QUERY}]
     });
   const {
     register,

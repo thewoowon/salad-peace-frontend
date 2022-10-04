@@ -8,16 +8,8 @@ import {
   createSalad,
   createSaladVariables,
 } from "../../__generated__/createSalad";
-import { MY_BUILDING_QUERY } from "./my-building";
-
-export const CREATE_SALAD_MUTATION = gql`
-  mutation createSalad($input: CreateSaladInput!) {
-    createSalad(input: $input) {
-      ok
-      error
-    }
-  }
-`;
+import { MY_AREA_BUILDING_QUERY } from "./my-area-building";
+import { CREATE_SALAD_MUTATION} from "../master/add-salad";
 
 interface IParams {
   buildingId: string;
@@ -30,7 +22,7 @@ interface IForm {
   [key: string]: string;
 }
 
-export const AddSalad = () => {
+export const AddAreaSalad = () => {
   const { buildingId } = useParams<{buildingId:string}>();
   const navigate = useNavigate();
   const [createSaladMutation, { loading }] = useMutation<
@@ -39,7 +31,7 @@ export const AddSalad = () => {
   >(CREATE_SALAD_MUTATION, {
     refetchQueries: [
       {
-        query: MY_BUILDING_QUERY,
+        query: MY_AREA_BUILDING_QUERY,
         variables: {
           input: {
             id: +(buildingId ?? "") ,
