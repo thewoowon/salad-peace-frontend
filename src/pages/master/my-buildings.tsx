@@ -1,5 +1,5 @@
 import { gql, useQuery } from "@apollo/client";
-import React from "react";
+import React, { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { BUILDING_FRAGMENT } from "../../fragments";
@@ -21,6 +21,9 @@ export const MY_BUILDINGS_QUERY = gql`
 
 export const MyBuildings = () =>{
     const { data } = useQuery<myBuildings>(MY_BUILDINGS_QUERY);
+    useEffect(()=>{
+
+    },[])
   return (
     <div>
       <Helmet>
@@ -30,12 +33,12 @@ export const MyBuildings = () =>{
         <h2 className="text-4xl font-medium mb-10">빌딩 현황</h2>
         {data?.myBuildings.ok && data.myBuildings.buildings.length === 0 ? (
           <>
-            <h4 className="text-xl mb-5">You have no Buildings.</h4>
+            <h4 className="text-xl mb-5">빌딩이 없네요.</h4>
             <Link
               className="text-lime-600 hover:underline"
-              to="/add-restaurant"
+              to="/add-building"
             >
-              Create one &rarr;
+              빌딩 생성 &rarr;
             </Link>
           </>
         ):

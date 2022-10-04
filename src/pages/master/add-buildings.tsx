@@ -127,31 +127,31 @@ export const AddBuilding = () => {
           className="input"
           type="text"
           placeholder="Name"
-          {...register("name", {required: "Name is required."} )}
+          {...register("name", {required: "이름은 필수입니다."} )}
         />
         <input
           className="input"
           type="text"
           placeholder="Address"
-          {...register("address",{ required: "Address is required." })}
+          {...register("address",{ required: "주소는 필수입니다." })}
         />
         <input
           className="input"
           type="text"
           placeholder="Category Name"
-          {...register("categoryName",{ required: "Category Name is required." })}
+          {...register("categoryName",{ required: "카테고리는 필수입니다." })}
         />
         <input
           className="input"
           type="text"
           placeholder="Permanent Worker"
-          {...register("permanentWorker",{ required: "Permanent Worker is required." })}
+          {...register("permanentWorker",{ required: "상주 근로자 수는 필수입니다." })}
         />
         <input
           className="input"
           type="text"
           placeholder="Building Code"
-          {...register("buildingCode",{ required: "Building Code is required." })}
+          {...register("buildingCode",{ required: "빌딩 코드는 필수입니다." })}
         />
         <div>
           <input type={"file"} 
@@ -161,7 +161,7 @@ export const AddBuilding = () => {
         <Button
           loading={uploading}
           canClick={formState.isValid}
-          actionText="Create Building"
+          actionText="빌딩 추가"
         />
         {data?.createBuilding?.error && (
           <FormError errorMessage={data.createBuilding.error} />

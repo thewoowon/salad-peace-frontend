@@ -33,9 +33,9 @@ export const MyAreaBuildings = () =>{
             <h4 className="text-xl mb-5">빌딩이 없는 것 같아요.</h4>
             <Link
               className="text-lime-600 hover:underline"
-              to="/add-restaurant"
+              to="/add-area-building"
             >
-              Create one &rarr;
+              빌딩 생성 &rarr;
             </Link>
           </>
         ):

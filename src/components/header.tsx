@@ -6,7 +6,9 @@ import { useMe } from "../hooks/useMe";
 import saladPeaceLogo from "../images/saladPeace_2.svg";
 import { useForm } from "react-hook-form";
 import { Timer } from "./timer";
-import loginOut from "../images/loginOut.svg";
+import logout from "../images/loginOut.svg";
+import editProfile from "../images/edit-profile.svg";
+import { authTokenVar, isLoggedInVar } from "../apollo";
 
 interface IFormProps{
   searchTerm:string;
@@ -20,6 +22,13 @@ export const Header: React.FC = () => {
       const searchTerm = getValues();
       navigate("/search",{state:searchTerm});
     }
+    const onClickHandler = () => {
+      localStorage.setItem("salad-token", "");
+      authTokenVar("");
+      isLoggedInVar(false);
+      navigate("/");
+    }
+
     return (
       <>
       {
@@ -46,8 +55,11 @@ export const Header: React.FC = () => {
                 <Timer></Timer>
               </div>
               <Link to="/edit-profile">
-                <img src={loginOut} className="w-12 h-12" alt="logOut"></img>
+                <img src={editProfile} className="w-9 h-9" alt="edit-profile"></img>
               </Link>
+              <button onClick={onClickHandler}>
+                <img src={logout} className="w-12 h-12" alt="logout"></img>
+              </button>
             </span>
           </div>
         </header>

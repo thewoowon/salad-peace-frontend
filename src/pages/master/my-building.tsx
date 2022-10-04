@@ -136,15 +136,15 @@ export const MyBuilding = () => {
           to={`/buildings/${id}/add-salad`}
           className=" mr-8 text-white bg-gray-800 py-3 px-10"
         >
-          Add Dish &rarr;
+          샐러드 추가 &rarr;
         </Link>
         <span className="cursor-pointer text-white bg-lime-700 py-3 px-10"
         onClick={openCheckout}>
-          Buy Promotion &rarr;
+          구매 &rarr;
         </span>
         <div className="mt-10">
           {data?.myBuilding.building?.menu.length === 0 ? (
-            <h4 className="text-xl mb-5">Please upload a dish!</h4>
+            <h4 className="text-xl mb-5">샐러드를 등록해주세요.</h4>
             ) : (
                 <div className="grid mt-16 md:grid-cols-3 gap-x-5 gap-y-10">
                   {data?.myBuilding.building?.menu.map((dish) => (
@@ -162,7 +162,7 @@ export const MyBuilding = () => {
               )}
         </div>
         <div className="mt-20 mb-10">
-          <h4 className="text-center text-2xl font-medium">Sales</h4>
+          <h4 className="text-center text-2xl font-medium">판매상품</h4>
           <div className="  mt-10">
             <VictoryChart
               height={500}

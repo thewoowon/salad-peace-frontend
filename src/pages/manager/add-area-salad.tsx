@@ -84,7 +84,7 @@ export const AddAreaSalad = () => {
       <Helmet>
         <title>샐러드 주문하기 -샐러드피스</title>
       </Helmet>
-      <h4 className="font-semibold text-2xl mb-3">Add Dish</h4>
+      <h4 className="font-semibold text-2xl mb-3">샐러드 추가</h4>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="grid max-w-screen-sm gap-3 mt-5 w-full mb-5"
@@ -93,28 +93,28 @@ export const AddAreaSalad = () => {
           className="input"
           type="text"
           placeholder="Name"
-          {...register("name",{ required: "Name is required." })}
+          {...register("name",{ required: "이름은 필수입니다." })}
         />
         <input
           className="input"
           type="number"
           min={0}
           placeholder="Price"
-          {...register("price",{ required: "Price is required." })}
+          {...register("price",{ required: "가격은 필수입니다." })}
         />
         <input
           className="input"
           type="text"
           placeholder="Description"
-          {...register("description",{ required: "Description is required." })}
+          {...register("description",{ required: "상세는 필수입니다." })}
         />
         <div className="my-10">
-          <h4 className="font-medium  mb-3 text-lg">Dish Options</h4>
+          <h4 className="font-medium  mb-3 text-lg">샐러드 옵션</h4>
           <span
             onClick={onAddOptionClick}
             className=" cursor-pointer text-white bg-gray-900 py-1 px-2 mt-5 bg-"
           >
-            Add Dish Option
+            샐러드 옵션 추가
           </span>
           {optionsNumber.length !== 0 &&
             optionsNumber.map((id) => (
@@ -136,7 +136,7 @@ export const AddAreaSalad = () => {
                   className="cursor-pointer text-white bg-red-500 ml-3 py-3 px-4 mt-5 bg-"
                   onClick={() => onDeleteClick(id)}
                 >
-                  Delete Option
+                  삭제
                 </span>
               </div>
             ))}
@@ -144,7 +144,7 @@ export const AddAreaSalad = () => {
         <Button
           loading={loading}
           canClick={formState.isValid}
-          actionText="Create Dish"
+          actionText="샐러드 생성"
         />
       </form>
     </div>

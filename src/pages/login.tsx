@@ -70,11 +70,11 @@ export const Login = ()=>{
     }
     return <div className="h-screen flex items-center flex-col mt-10 lg:mt-28">
         <Helmet>
-            <title>Login | Salad Peace</title>
+            <title>로그인 | 샐러드피스</title>
         </Helmet>
             <div className="w-full max-w-screen-sm flex flex-col px-5 items-center">
             <img src={sp} className="w-52 mb-10" alt="SaladPeace"></img>
-            <h4 className=" w-full font-medium text-left text-3xl">Welcome back</h4>
+            <h4 className=" w-full font-medium text-left text-3xl">환영합니다!</h4>
             <form  
                 className="grid gap-3 mt-5 w-full mb-5" 
                 onSubmit={handleSubmit(onSubmit)}
@@ -117,7 +117,7 @@ export const Login = ()=>{
                 }
             </form>
             <div>
-                New to SaladPeace? <Link to={"/create-account"} className="text-green-600 hover:underline">Create an Account</Link>
+                샐러드피스가 처음이신가요? <Link to={"/create-account"} className="text-green-600 hover:underline">계정 생성</Link>
             </div>
         </div>
     </div>

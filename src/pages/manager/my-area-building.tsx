@@ -142,7 +142,7 @@ export const MyAreaBuilding = () => {
               )}
         </div>
         <div className="mt-20 mb-10">
-          <h4 className="text-center text-2xl font-medium">Sales</h4>
+          <h4 className="text-center text-2xl font-medium">판매상품</h4>
           <div className="  mt-10">
             <VictoryChart
               height={500}
