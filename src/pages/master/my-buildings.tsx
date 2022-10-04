@@ -21,9 +21,6 @@ export const MY_BUILDINGS_QUERY = gql`
 
 export const MyBuildings = () =>{
     const { data } = useQuery<myBuildings>(MY_BUILDINGS_QUERY);
-    useEffect(()=>{
-
-    },[])
   return (
     <div>
       <Helmet>

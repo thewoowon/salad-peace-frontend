@@ -4,11 +4,19 @@ import { buildingsPageQuery, buildingsPageQueryVariables } from "../../__generat
 import { Building } from "../../components/building";
 import { useForm } from "react-hook-form";
 import { useNavigate,Link } from "react-router-dom";
-import { CATEGORY_FRAGMENT,BUILDING_FRAGMENT } from "../../fragments";
+import { CATEGORY_FRAGMENT,BUILDING_FRAGMENT, MY_BUILDING_SALAD_FRAGMENT } from "../../fragments";
 import { Helmet } from "react-helmet-async";
 import GoogleMapReact from "google-map-react";
 import { useMe } from "../../hooks/useMe";
 
+const MY_BUIDING_SALAD_SUBSCRIPTION = gql`
+  subscription myAssignment($input: MyBuildingSaladInput!) {
+    myAssignment {
+      ...FullOrderParts
+    }
+  }
+  ${MY_BUILDING_SALAD_FRAGMENT}
+`;
 
 
 const BUILDINGS_QUERY = gql`
@@ -127,12 +135,12 @@ export const Buildings = () => {
                   <p className="text-5xl">{`현재 ${userData?.me.building?.name}에`}</p>
                   <p className="text-5xl"><span className=" text-red-500">54</span>개의</p>
                   <p className="text-5xl">샐러드가 남아있어요.</p>
-                  <button className="bg-green-400 text-white p-3 rounded-xl mt-3 hover:bg-green-500">바로 주문하기</button>
+                  <button className="bg-gray-600 text-white p-3 rounded-xl mt-3 hover:bg-gray-600">바로 주문하기</button>
                 </div>
               </div>
             </div>
-            <div className="h-96 flex justify-center items-center bg-green-300">
-              <p className="text-5xl text-white font-bold ">샐러드피스는 전국 <span className="text-red-400">107</span>개의 빌딩과 함께하고 있어요<div className=""></div></p>
+            <div className="h-96 flex justify-center items-center bg-gray-100">
+              <p className="text-4xl text-black ">샐러드피스는 전국 <span className="text-purple-500">107</span>개의 빌딩과 함께하고 있어요<div className=""></div></p>
             </div>
             {!loading && (
                 <div className="max-w-screen-2xl pb-20 mx-auto mt-12">

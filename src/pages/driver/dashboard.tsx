@@ -8,7 +8,7 @@ import { takeOrder, takeOrderVariables } from "../../__generated__/takeOrder";
 
 
 const COOCKED_ORDERS_SUBSCRIPTION = gql`
-  subscription coockedOrders {
+  subscription cookedOrders {
     cookedOrders {
       ...FullOrderParts
     }

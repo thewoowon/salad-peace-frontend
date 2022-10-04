@@ -4,11 +4,14 @@ import { useForm } from "react-hook-form";
 import { FormError } from "../components/form-error";
 import { loginMutation, loginMutationVariables } from '../__generated__/loginMutation';
 import sp from '../images/sp.svg';
+import saladPeace_1 from '../images/saladPeace_1.svg';
 import { Button } from "../components/button";
 import { Link } from "react-router-dom";
 import {Helmet} from 'react-helmet-async';
 import { authTokenVar, isLoggedInVar } from "../apollo";
 import { LOCALSTORAGE_TOKEN } from "../constant";
+/** @jsxImportSource @emotion/react */
+import { jsx, css } from '@emotion/react'
 
 //오로지 아폴로만을 위한 (프론트엔드)만을 위한 네이밍 CornMutation
 export const LOGIN_MUTATION = gql`
@@ -68,13 +71,13 @@ export const Login = ()=>{
             });
         }
     }
-    return <div className="h-screen flex items-center flex-col mt-10 lg:mt-28">
+    return <div className=" min-h-full flex items-center flex-col mt-10 lg:mt-28">
         <Helmet>
             <title>로그인 | 샐러드피스</title>
         </Helmet>
-            <div className="w-full max-w-screen-sm flex flex-col px-5 items-center">
-            <img src={sp} className="w-52 mb-10" alt="SaladPeace"></img>
-            <h4 className=" w-full font-medium text-left text-3xl">환영합니다!</h4>
+            <div className="w-full max-w-sm flex flex-col px-5 items-center">
+            <img src={saladPeace_1} className="mb-10" alt="SaladPeace"></img>
+            <h4 className=" text-center w-full font-medium text-left text-xl">도심 속 샐러드 생활, 샐러드피스</h4>
             <form  
                 className="grid gap-3 mt-5 w-full mb-5" 
                 onSubmit={handleSubmit(onSubmit)}
@@ -87,7 +90,8 @@ export const Login = ()=>{
                     type="email"
                     placeholder="Email" 
                     required={true}
-                    className="input transition-colors"></input>
+                    className="h-12 rounded-md border px-5 focus:outline-none focus:bg-purple-100 transition-colors"
+                    ></input>
                 {
                     formState.errors.email?.type === "pattern" && (
                         <FormError errorMessage={"Please enter a valid email"}></FormError>
@@ -103,7 +107,7 @@ export const Login = ()=>{
                     type="password"
                     required={true}
                     placeholder="Password" 
-                    className="input"></input>
+                    className="h-12 rounded-md border px-5 focus:outline-none focus:bg-purple-100 transition-colors"></input>
                 {
                     formState.errors.password?.message && (
                         <FormError errorMessage={formState.errors.password?.message}></FormError>

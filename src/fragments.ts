@@ -61,4 +61,25 @@ export const FULL_ORDER_FRAGMENT = gql`
       name
     }
   }
-`
+`;
+
+export const MY_BUILDING_SALAD_FRAGMENT = gql`
+  fragment MyBuildingSaladParts on Salad {
+    id
+    name
+    manager{
+      id
+      email
+    }
+    total
+    building{
+      id
+      name
+    }
+    salad{
+      id
+      name
+    }
+    }
+    `;
+

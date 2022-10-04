@@ -1,6 +1,4 @@
 import React from "react";
-import { faUser } from "@fortawesome/free-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useNavigate } from "react-router-dom";
 import { useMe } from "../hooks/useMe";
 import saladPeaceLogo from "../images/saladPeace_2.svg";
@@ -26,14 +24,14 @@ export const Header: React.FC = () => {
       localStorage.setItem("salad-token", "");
       authTokenVar("");
       isLoggedInVar(false);
-      navigate("/");
+      navigate("/",{replace:true});
     }
 
     return (
       <>
       {
         !data?.me.verified && 
-        <div className="bg-green-500 p-3 text-center text-base text-white">
+        <div className="bg-gray-600 p-3 text-center text-base text-white">
           <span >Please verify your email.</span>
         </div>
       }
@@ -46,7 +44,7 @@ export const Header: React.FC = () => {
                 <input
                 {...register("searchTerm",{required:true,minLength:3})}
                 type="Search"
-                className="input w-3/4 md:w-3/12 border border-green-500 border-solid rounded-xl p-3"
+                className="input w-3/4 md:w-3/12 border border-gray-500 border-solid rounded-xl p-3"
                 placeholder="Search buildings..."
                 />
             </form>
