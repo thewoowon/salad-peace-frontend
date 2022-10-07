@@ -9,6 +9,8 @@ import {Helmet} from 'react-helmet-async';
 import { UserRole } from "../__generated__/globalTypes";
 import { createAccountMutation, createAccountMutationVariables } from "../__generated__/createAccountMutation";
 
+import DaumPostcode from 'react-daum-postcode';
+
 export const CREATE_ACCOUNT_MUTATION = gql`
     mutation createAccountMutation($buildingCode:String!,$createAccountInput:CreateAccountInput!){ 
         createAccount(buildingCode:$buildingCode,input:$createAccountInput){

@@ -8,11 +8,12 @@ import { CATEGORY_FRAGMENT,BUILDING_FRAGMENT, MY_BUILDING_SALAD_FRAGMENT } from 
 import { Helmet } from "react-helmet-async";
 import GoogleMapReact from "google-map-react";
 import { useMe } from "../../hooks/useMe";
+import { useQuantity } from "../../hooks/useQuantity";
 
 const MY_BUIDING_SALAD_SUBSCRIPTION = gql`
-  subscription myAssignment($input: MyBuildingSaladInput!) {
-    myAssignment {
-      ...FullOrderParts
+  subscription pendingOrders{
+    pendingOrders {
+      ...FullOrderParts 
     }
   }
   ${MY_BUILDING_SALAD_FRAGMENT}
@@ -56,11 +57,11 @@ const Driver: React.FC<IDriverProps> = () => <div className="text-lg">🚖</div>
 
 export const Buildings = () => {
     const { data: userData } = useMe();
-    console.log(userData);
     const [driverCoords, setDriverCoords] = useState<ICoords>({ lng: 0, lat: 0 });
     const [map, setMap] = useState<google.maps.Map>();
     const [maps, setMaps] = useState<any>();
     const [page,setPage] = useState(1);
+    const navigate = useNavigate();
     const { data, loading } = useQuery<
       buildingsPageQuery,
       buildingsPageQueryVariables
@@ -71,6 +72,7 @@ export const Buildings = () => {
         },
       },
     });
+    const {data: quantity} = useQuantity();
     const onNextPageClick = () => setPage((current) => current + 1);
     const onPrevPageClick = () => setPage((current) => current - 1);
 
@@ -133,9 +135,11 @@ export const Buildings = () => {
                 <div>
                   <p className="text-3xl">{`${userData?.me.name}님!`}</p>
                   <p className="text-5xl">{`현재 ${userData?.me.building?.name}에`}</p>
-                  <p className="text-5xl"><span className=" text-red-500">54</span>개의</p>
+                  <p className="text-5xl"><span className=" text-red-500">{quantity}</span>개의</p>
                   <p className="text-5xl">샐러드가 남아있어요.</p>
-                  <button className="bg-gray-600 text-white p-3 rounded-xl mt-3 hover:bg-gray-600">바로 주문하기</button>
+                  <button onClick={()=>{
+                    navigate(`buildings/${userData?.me.building?.id}`)
+                  }} className="bg-gray-600 text-white p-3 rounded-xl mt-3 hover:bg-gray-600">바로 주문하기</button>
                 </div>
               </div>
             </div>
