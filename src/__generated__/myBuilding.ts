@@ -20,6 +20,12 @@ export interface myBuilding_myBuilding_building_menu_options {
   extra: number | null;
 }
 
+export interface myBuilding_myBuilding_building_menu_building {
+  __typename: "Building";
+  id: number;
+  name: string;
+}
+
 export interface myBuilding_myBuilding_building_menu {
   __typename: "Salad";
   id: number;
@@ -28,6 +34,7 @@ export interface myBuilding_myBuilding_building_menu {
   photo: string | null;
   description: string;
   options: myBuilding_myBuilding_building_menu_options[] | null;
+  building: myBuilding_myBuilding_building_menu_building | null;
 }
 
 export interface myBuilding_myBuilding_building_orders {

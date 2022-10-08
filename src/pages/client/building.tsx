@@ -69,7 +69,8 @@ export const Building = () => {
       }
       const createOrderItemInput:CreateOrderItemInput = {
         saladId:saladId,
-        options:[]
+        // options:[]
+        quantity:1
       }
       setOrderItems((current) => [
         createOrderItemInput
@@ -88,16 +89,23 @@ export const Building = () => {
       }
       const oldItem = getItem(saladId);
       if (oldItem) {
-        const hasOption = Boolean(
-          oldItem.options?.find((aOption: { name: string; }) => aOption.name == optionName)
-        );
-        if (!hasOption) {
+        // const hasOption = Boolean(
+        //   oldItem.options?.find((aOption: { name: string; }) => aOption.name == optionName)
+        // );
+        // if (!hasOption) {
+        //   removeFromOrder(saladId);
+        //   setOrderItems((current) => [
+        //     { saladId, options: [{ name: optionName }, ...oldItem.options!] },
+        //     ...current,
+        //   ]);
+        // }
+       
           removeFromOrder(saladId);
           setOrderItems((current) => [
-            { saladId, options: [{ name: optionName }, ...oldItem.options!] },
+            { saladId, quantity:1 },
             ...current,
           ]);
-        }
+        
       }
     };
     const removeOptionFromItem = (saladId: number, optionName: string) => {
@@ -110,25 +118,27 @@ export const Building = () => {
         setOrderItems((current) => [
           {
             saladId,
-            options: oldItem.options?.filter(
-              (option: { name: string; }) => option.name !== optionName
-            ),
+            // options: oldItem.options?.filter(
+            //   (option: { name: string; }) => option.name !== optionName
+            // ),
+            quantity:1
           },
           ...current,
         ]);
         return;
       }
     };
-    const getOptionFromItem = (
-      item: CreateOrderItemInput,
-      optionName: string
-    ) => {
-      return item.options?.find((option: { name: string; }) => option.name === optionName);
-    };
+    // const getOptionFromItem = (
+    //   item: CreateOrderItemInput,
+    //   optionName: string
+    // ) => {
+    //   return item.options?.find((option: { name: string; }) => option.name === optionName);
+    // };
     const isOptionSelected = (saladId: number, optionName: string) => {
       const item = getItem(saladId);
       if (item) {
-        return Boolean(getOptionFromItem(item, optionName));
+        // return Boolean(getOptionFromItem(item, optionName));
+        return true;
       }
       return false;
     };

@@ -13,6 +13,12 @@ export interface SaladParts_options {
   extra: number | null;
 }
 
+export interface SaladParts_building {
+  __typename: "Building";
+  id: number;
+  name: string;
+}
+
 export interface SaladParts {
   __typename: "Salad";
   id: number;
@@ -21,4 +27,5 @@ export interface SaladParts {
   photo: string | null;
   description: string;
   options: SaladParts_options[] | null;
+  building: SaladParts_building | null;
 }

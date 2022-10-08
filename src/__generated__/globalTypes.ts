@@ -55,7 +55,7 @@ export interface CreateOrderInput {
 
 export interface CreateOrderItemInput {
   saladId: number;
-  options?: OrderItemOptionInputType[] | null;
+  quantity?: number | null;
 }
 
 export interface CreatePaymentInput {
@@ -96,12 +96,11 @@ export interface MyBuildingInput {
   id: number;
 }
 
-export interface OrderItemOptionInputType {
-  name: string;
-  choice?: string | null;
+export interface OrderUpdatesInput {
+  id: number;
 }
 
-export interface OrderUpdatesInput {
+export interface QuantityLeftInput {
   id: number;
 }
 

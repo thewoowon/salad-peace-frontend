@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import GoogleMapReact from "google-map-react";
 import { gql, useSubscription,useMutation } from "@apollo/client";
 import { FULL_ORDER_FRAGMENT } from "../../fragments";
-import { coockedOrders } from "../../__generated__/coockedOrders";
+import { cookedOrders } from "../../__generated__/cookedOrders";
 import { Link,useNavigate} from "react-router-dom";
 import { takeOrder, takeOrderVariables } from "../../__generated__/takeOrder";
 
@@ -74,11 +74,11 @@ export const Dashboard = () => {
         setMap(map);
         setMaps(maps);
     }
-    const { data: coockedOrdersData } = useSubscription<coockedOrders>(
+    const { data: cookedOrdersData } = useSubscription<cookedOrders>(
       COOCKED_ORDERS_SUBSCRIPTION
     );
     useEffect(() => {
-      if (coockedOrdersData?.cookedOrders.id) {
+      if (cookedOrdersData?.cookedOrders.id) {
           if (map) {
             const directionsService = new google.maps.DirectionsService();
             const directionsRenderer = new google.maps.DirectionsRenderer({
@@ -112,12 +112,12 @@ export const Dashboard = () => {
           
         };
       }
-    }, [coockedOrdersData, driverCoords.lat, driverCoords.lng, map]);
+    }, [cookedOrdersData, driverCoords.lat, driverCoords.lng, map]);
 
     const navigate = useNavigate();
     const onCompleted = (data: takeOrder) => {
         if (data.takeOrder.ok) {
-            navigate(`/orders/${coockedOrdersData?.cookedOrders.id}`);
+            navigate(`/orders/${cookedOrdersData?.cookedOrders.id}`);
         }
     };
     const [takeOrderMutation] = useMutation<takeOrder, takeOrderVariables>(
@@ -154,17 +154,17 @@ export const Dashboard = () => {
           ></GoogleMapReact>
       </div>
       <div className=" max-w-screen-sm mx-auto bg-white relative -top-10 shadow-lg py-8 px-5">
-        {coockedOrdersData?.cookedOrders.building ? (
+        {cookedOrdersData?.cookedOrders.building ? (
           <>
             <h1 className="text-center  text-3xl font-medium">
               New Coocked Order
             </h1>
             <h1 className="text-center my-3 text-2xl font-medium">
               Pick it up soon @{" "}
-              {coockedOrdersData?.cookedOrders.building?.name}
+              {cookedOrdersData?.cookedOrders.building?.name}
             </h1>
             <Link
-              to={`/orders/${coockedOrdersData?.cookedOrders.id}`}
+              to={`/orders/${cookedOrdersData?.cookedOrders.id}`}
               className="btn w-full  block  text-center mt-5"
             >
               Accept Challenge &rarr;

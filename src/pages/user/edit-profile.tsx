@@ -4,6 +4,7 @@ import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import { Button } from "../../components/button";
 import { useMe } from "../../hooks/useMe";
+import saladPeace_1 from '../../images/saladPeace_1.svg';
 import {
     editProfile,
     editProfileVariables,
@@ -78,11 +79,13 @@ export const EditProfile = () => {
     });
   };
   return (
-    <div className="mt-52 flex flex-col justify-center items-center">
+    <div className="min-h-full flex flex-col items-center lg:mt-6 xl:mt-8 2xl:mt-10">
         <Helmet>
             <title>회원 정보 수정 - 샐러드피스</title>
         </Helmet>
-      <h4 className="font-semibold text-2xl mb-3">Edit Profile</h4>
+      <div className="w-full max-w-sm flex flex-col px-5 items-center">
+      <a href="/edit-profile"><img src={saladPeace_1} alt="SaladPeace"></img></a>
+      <h4 className="font-semibold text-2xl mb-3">프로필 수정</h4>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="grid max-w-screen-sm gap-3 mt-5 w-full mb-5"
@@ -91,21 +94,21 @@ export const EditProfile = () => {
           {...register("email",{
             pattern: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
           })}
-          className="input"
+          className="h-12 rounded-md border px-5 focus:outline-none focus:bg-purple-100 transition-colors"
           type="email"
-          placeholder="Email"
+          placeholder="이메일을 입력해주세요."
         />
         <input
           {...register("password")}
-          className="input"
+          className="h-12 rounded-md border px-5 focus:outline-none focus:bg-purple-100 transition-colors"
           type="password"
-          placeholder="Password"
+          placeholder="비밀번호를 입력해주세요."
         />
         <input
           {...register("buildingCode")}
-          className="input"
+          className="h-12 rounded-md border px-5 focus:outline-none focus:bg-purple-100 transition-colors"
           type="text"
-          placeholder="BuildingCode"
+          placeholder="빌딩코드를 입력해주세요."
         />
         <Button
           loading={loading}
@@ -113,6 +116,7 @@ export const EditProfile = () => {
           actionText="Save Profile"
         />
       </form>
+      </div>
     </div>
   );
 };

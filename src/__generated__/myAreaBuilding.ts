@@ -20,6 +20,12 @@ export interface myAreaBuilding_myAreaBuilding_building_menu_options {
   extra: number | null;
 }
 
+export interface myAreaBuilding_myAreaBuilding_building_menu_building {
+  __typename: "Building";
+  id: number;
+  name: string;
+}
+
 export interface myAreaBuilding_myAreaBuilding_building_menu {
   __typename: "Salad";
   id: number;
@@ -28,6 +34,7 @@ export interface myAreaBuilding_myAreaBuilding_building_menu {
   photo: string | null;
   description: string;
   options: myAreaBuilding_myAreaBuilding_building_menu_options[] | null;
+  building: myAreaBuilding_myAreaBuilding_building_menu_building | null;
 }
 
 export interface myAreaBuilding_myAreaBuilding_building_orders {

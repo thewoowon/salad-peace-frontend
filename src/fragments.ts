@@ -35,6 +35,10 @@ export const SALAD_FRAGMENT = gql`
       name
       extra
     }
+    building{
+      id
+      name
+    }
   }
 `;
 
@@ -64,7 +68,7 @@ export const FULL_ORDER_FRAGMENT = gql`
 `;
 
 export const MY_BUILDING_SALAD_FRAGMENT = gql`
-  fragment MyBuildingSaladParts on Salad {
+  fragment MyBuildingSaladParts on Assignment {
     id
     name
     manager{

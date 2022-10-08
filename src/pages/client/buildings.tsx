@@ -9,15 +9,16 @@ import { Helmet } from "react-helmet-async";
 import GoogleMapReact from "google-map-react";
 import { useMe } from "../../hooks/useMe";
 import { useQuantity } from "../../hooks/useQuantity";
+import { css } from '@emotion/react';
 
-const MY_BUIDING_SALAD_SUBSCRIPTION = gql`
-  subscription pendingOrders{
-    pendingOrders {
-      ...FullOrderParts 
-    }
-  }
-  ${MY_BUILDING_SALAD_FRAGMENT}
-`;
+// const MY_BUIDING_SALAD_SUBSCRIPTION = gql`
+//   subscription pendingOrders{
+//     pendingOrders {
+//       ...FullOrderParts 
+//     }
+//   }
+//   ${MY_BUILDING_SALAD_FRAGMENT}
+// `;
 
 
 const BUILDINGS_QUERY = gql`
@@ -55,9 +56,35 @@ interface IDriverProps {
 }
 const Driver: React.FC<IDriverProps> = () => <div className="text-lg">🚖</div>;
 
+interface IMarkerProps{
+  text:string;
+}
+
+const CustomMarker = ({ text }:IMarkerProps) => (
+  <div
+    css={css`
+      background: white;
+      color: black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 15px;
+      box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      width: 70px;
+      height: 30px;
+
+      font-size: 15px;
+    `}
+  >
+    {text}
+  </div>
+);
+
+
 export const Buildings = () => {
+    const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
     const { data: userData } = useMe();
-    const [driverCoords, setDriverCoords] = useState<ICoords>({ lng: 0, lat: 0 });
+    const [myCoords, setMyCoords] = useState<ICoords>({ lng: 0, lat: 0 });
     const [map, setMap] = useState<google.maps.Map>();
     const [maps, setMaps] = useState<any>();
     const [page,setPage] = useState(1);
@@ -72,18 +99,19 @@ export const Buildings = () => {
         },
       },
     });
-    const {data: quantity} = useQuantity();
+    const {data: quantity} = useQuantity(0);
     const onNextPageClick = () => setPage((current) => current + 1);
     const onPrevPageClick = () => setPage((current) => current - 1);
 
     const onApiLoaded = ({ map, maps }: { map: any; maps: any }) => {
-      map.panTo(new maps.LatLng(driverCoords.lat, driverCoords.lng));
+      map.panTo(new maps.LatLng(myCoords.lat, myCoords.lng));
         setMap(map);
         setMaps(maps);
+        console.log(map, maps);
     }
 
     const onSucces = ({ coords: { latitude, longitude } }: GeolocationPosition) => {
-      setDriverCoords({ lat: latitude, lng: longitude });
+      setMyCoords({ lat: latitude, lng: longitude });
     };
     
     const onError = (error: GeolocationPositionError) => {
@@ -96,7 +124,7 @@ export const Buildings = () => {
     }, []);
     useEffect(() => {
         if (map && maps) {
-            map.panTo(new google.maps.LatLng(driverCoords.lat, driverCoords.lng));
+            map.panTo(new google.maps.LatLng(myCoords.lat, myCoords.lng));
             /* const geocoder = new google.maps.Geocoder();
             geocoder.geocode(
               {
@@ -107,7 +135,7 @@ export const Buildings = () => {
               }
             ); */
         }
-      }, [driverCoords.lat, driverCoords.lng, map, maps]
+      }, [myCoords.lat, myCoords.lng, map, maps]
     );
     return (
         <div>
@@ -127,7 +155,7 @@ export const Buildings = () => {
                     lat: 59.95,
                     lng: 30.33,
                   }}
-                  bootstrapURLKeys={{ key: "AIzaSyDKkUZT0Bt7y-uscb-zXebDQbluZ8IlUDY" }}
+                  bootstrapURLKeys={{ key: "AIzaSyDKkUZT0Bt7y-uscb-zXebDQbluZ8IlUDY"  }}
                   ></GoogleMapReact>
                 </div>
               </div>
@@ -135,7 +163,7 @@ export const Buildings = () => {
                 <div>
                   <p className="text-3xl">{`${userData?.me.name}님!`}</p>
                   <p className="text-5xl">{`현재 ${userData?.me.building?.name}에`}</p>
-                  <p className="text-5xl"><span className=" text-red-500">{quantity}</span>개의</p>
+                  <p className="text-5xl"><span className=" text-red-500">{`${quantity?.quantity.quantity}`}</span>개의</p>
                   <p className="text-5xl">샐러드가 남아있어요.</p>
                   <button onClick={()=>{
                     navigate(`buildings/${userData?.me.building?.id}`)

@@ -15,7 +15,7 @@ root.render(
     <ApolloProvider client={client}>
       <HelmetProvider>
         <BrowserRouter>
-         <App></App>
+            <App></App>
         </BrowserRouter>
       </HelmetProvider>
     </ApolloProvider>

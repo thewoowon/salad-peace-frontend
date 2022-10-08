@@ -71,12 +71,12 @@ export const Login = ()=>{
             });
         }
     }
-    return <div className=" min-h-full flex items-center flex-col mt-10 lg:mt-28">
+    return <div className="min-h-full flex items-center flex-col lg:mt-28 xl:mt-32 2xl:mt-40">
         <Helmet>
             <title>로그인 | 샐러드피스</title>
         </Helmet>
             <div className="w-full max-w-sm flex flex-col px-5 items-center">
-            <img src={saladPeace_1} className="mb-10" alt="SaladPeace"></img>
+            <a href="/"><img src={saladPeace_1} alt="SaladPeace"></img></a>
             <h4 className=" text-center w-full font-medium text-left text-xl">도심 속 샐러드 생활, 샐러드피스</h4>
             <form  
                 className="grid gap-3 mt-5 w-full mb-5" 
@@ -84,17 +84,17 @@ export const Login = ()=>{
             >
                 <input 
                     {...register("email",{
-                        required:"Email is required",
+                        required:"이메일은 필수입니다.",
                         pattern:/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
                     })}
                     type="email"
-                    placeholder="Email" 
+                    placeholder="이메일을 입력해주세요." 
                     required={true}
                     className="h-12 rounded-md border px-5 focus:outline-none focus:bg-purple-100 transition-colors"
                     ></input>
                 {
                     formState.errors.email?.type === "pattern" && (
-                        <FormError errorMessage={"Please enter a valid email"}></FormError>
+                        <FormError errorMessage={"유효한 이메일을 입력해주세요."}></FormError>
                     )
                 }
                 {
@@ -103,10 +103,10 @@ export const Login = ()=>{
                     )
                 }
                 <input 
-                    {...register("password",{required:"Password is required"})}
+                    {...register("password",{required:"비밀번호는 필수입니다."})}
                     type="password"
                     required={true}
-                    placeholder="Password" 
+                    placeholder="비밀번호를 입력해주세요." 
                     className="h-12 rounded-md border px-5 focus:outline-none focus:bg-purple-100 transition-colors"></input>
                 {
                     formState.errors.password?.message && (

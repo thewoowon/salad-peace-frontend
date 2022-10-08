@@ -1,14 +1,21 @@
 import { gql, useQuery } from "@apollo/client";
-import { quantityQuery } from "../__generated__/meQuery";
+import { QuantityLeftInput } from "../__generated__/globalTypes";
+import { quantityQuery } from "../__generated__/quantityQuery";
 
 export const QUANTITY_QUERY = gql`
-  query quantityQuery {
-    quantity {
+  query quantityQuery($input:QuantityLeftInput!) {
+    quantity(input: $input) {
         quantity
     }
   }
 `;
 
-export const useQuantity = () => {
-  return useQuery<quantityQuery>(QUANTITY_QUERY);
+export const useQuantity = (id:number) => {
+  return useQuery<quantityQuery>(QUANTITY_QUERY,{
+    variables: {
+      input: {
+        id: id,
+      },
+    },
+  });
 };
