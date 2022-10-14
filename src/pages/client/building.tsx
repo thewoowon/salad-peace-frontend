@@ -1,3 +1,5 @@
+/** @jsxImportSource @emotion/react */
+import { jsx, css } from '@emotion/react'
 import { gql, useMutation ,useQuery } from "@apollo/client";
 import React, { useEffect, useState } from "react";
 import { useParams,useNavigate } from "react-router-dom";
@@ -202,36 +204,23 @@ export const Building = () => {
           </Helmet>
           <div className="flex">
             <div
-              className=" py-48 w-6/12">
-              <div className="bg-white w-3/12 py-8 pl-48">
+              className=" py-48 w-6/12 bg-gray-300 px-20"
+              css={css`
+                        background-image:url('https://thejobyouhate76.s3.amazonaws.com/parc1.jpeg');
+                        background-size:cover;
+                        }
+                      `}>
+              <div className="bg-white w-12/12 py-8 text-center rounded-md">
                 <h4 className="text-4xl mb-3">{data?.building.building?.name}</h4>
-                <h5 className="text-sm font-light mb-2">
-                  {data?.building.building?.category?.name}
+                <h5 className="text-md font-light mb-2">
+                  {data?.building.building?.category?.name}에 있는 멋진 빌딩
                 </h5>
-                <h6 className="text-sm font-light">
-                  {data?.building.building?.address}
+                <h6 className="text-md font-light">
+                  {data?.building.building?.address}에 있어요
                 </h6>
               </div>
             </div>
-            <div className="pb-32 flex flex-col items-end mt-5 w-6/12 px-20">
-              {!orderStarted && (
-              <button onClick={triggerStartOrder} className="btn px-10 py-2 bg-gray-200 rounded-md hover:bg-gray-300 transition-all">
-                주문담기
-              </button>
-              )}
-              {orderStarted && (
-                <div className="flex items-center">
-                  <button onClick={triggerConfirmOrder} className="btn px-10 py-2 bg-gray-200 rounded-md hover:bg-gray-300 transition-all mr-2">
-                    주문하기
-                  </button>
-                  <button
-                    onClick={triggerCancelOrder}
-                    className="btn px-10 py-2 bg-gray-200 rounded-md hover:bg-gray-300 transition-all"
-                  >
-                    주문취소
-                  </button>
-                </div>
-              )}
+            <div className="pb-32 flex flex-col w-6/12 px-20">
               <div className="w-full grid mt-16 md:grid-cols-1 gap-x-5 gap-y-10">
                 {data?.building.assignments?.map((dish, index: number) => (
                   <Salad
@@ -263,7 +252,30 @@ export const Building = () => {
                     </Salad>
                 ))}
               </div>
+              <div className='w-10/12 flex justify-end py-5'>
+                {!orderStarted && (
+                <button onClick={triggerStartOrder} className="btn px-10 py-2 bg-gray-200 rounded-md hover:bg-gray-300 transition-all">
+                  주문담기
+                </button>
+                )}
+                {orderStarted && (
+                  <div className="flex items-center">
+                    <button onClick={triggerConfirmOrder} className="btn px-10 py-2 bg-gray-200 rounded-md hover:bg-gray-300 transition-all mr-2">
+                      주문하기
+                    </button>
+                    <button
+                      onClick={triggerCancelOrder}
+                      className="btn px-10 py-2 bg-gray-200 rounded-md hover:bg-gray-300 transition-all"
+                    >
+                      주문취소
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
+          <div>
+            Hello
           </div>
         </div>
       );
