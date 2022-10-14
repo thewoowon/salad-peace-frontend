@@ -48,11 +48,41 @@ export interface building_building_building {
   menu: building_building_building_menu[];
 }
 
+export interface building_building_assignments_salad_options_choices {
+  __typename: "SaladChoice";
+  name: string | null;
+  extra: number | null;
+}
+
+export interface building_building_assignments_salad_options {
+  __typename: "SaladOption";
+  name: string;
+  choices: building_building_assignments_salad_options_choices[] | null;
+  extra: number | null;
+}
+
+export interface building_building_assignments_salad {
+  __typename: "Salad";
+  id: number;
+  name: string;
+  price: number;
+  photo: string | null;
+  description: string;
+  options: building_building_assignments_salad_options[] | null;
+}
+
+export interface building_building_assignments {
+  __typename: "Assignment";
+  total: number;
+  salad: building_building_assignments_salad | null;
+}
+
 export interface building_building {
   __typename: "BuildingOutput";
   ok: boolean;
   error: string | null;
   building: building_building_building | null;
+  assignments: building_building_assignments[] | null;
 }
 
 export interface building {

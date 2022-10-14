@@ -12,6 +12,7 @@ export const ME_QUERY = gql`
       building {
         id
         name
+        coverImg
       }
       category{
         id

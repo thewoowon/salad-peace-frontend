@@ -13,6 +13,7 @@ export interface meQuery_me_building {
   __typename: "Building";
   id: number;
   name: string;
+  coverImg: string | null;
 }
 
 export interface meQuery_me_category {

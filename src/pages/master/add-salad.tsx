@@ -63,8 +63,6 @@ export const AddSalad = () => {
       name: rest[`${theId}-optionName`],
       extra: +rest[`${theId}-optionExtra`],
     }));
-    console.log(getValues());
-    console.log(optionObjects);
     createSaladMutation({
       variables: {
         input: {

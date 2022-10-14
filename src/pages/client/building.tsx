@@ -1,5 +1,5 @@
 import { gql, useMutation ,useQuery } from "@apollo/client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams,useNavigate } from "react-router-dom";
 import { Salad } from "../../components/salad";
 import { BUILDING_FRAGMENT, SALAD_FRAGMENT } from "../../fragments";
@@ -17,11 +17,29 @@ const BUILDING_QUERY = gql`
   query building($input: BuildingInput!) {
     building(input: $input) {
       ok
-      error
+      error   
       building {
         ...BuildingParts
         menu {
           ...SaladParts
+        }
+      }
+      assignments {
+        total
+        salad {
+          id
+          name
+          price
+          photo
+          description
+          options {
+            name
+            choices {
+              name
+              extra
+            }
+            extra
+          }
         }
       }
     }
@@ -47,7 +65,7 @@ export const Building = () => {
       {
         variables: {
           input: {
-            buildingId: + (params.id ?? ""),
+            buildingId: +(params.id ?? ""),
           },
         },
       }
@@ -182,69 +200,70 @@ export const Building = () => {
           <Helmet>
             <title>{data?.building.building?.name || ""} - 샐러드피스</title>
           </Helmet>
-          <div
-            className=" bg-gray-800 bg-center bg-cover py-48"
-            style={{
-              backgroundImage: `url(${data?.building.building?.coverImg})`,
-            }}
-          >
-            <div className="bg-white w-3/12 py-8 pl-48">
-              <h4 className="text-4xl mb-3">{data?.building.building?.name}</h4>
-              <h5 className="text-sm font-light mb-2">
-                {data?.building.building?.category?.name}
-              </h5>
-              <h6 className="text-sm font-light">
-                {data?.building.building?.address}
-              </h6>
+          <div className="flex">
+            <div
+              className=" py-48 w-6/12">
+              <div className="bg-white w-3/12 py-8 pl-48">
+                <h4 className="text-4xl mb-3">{data?.building.building?.name}</h4>
+                <h5 className="text-sm font-light mb-2">
+                  {data?.building.building?.category?.name}
+                </h5>
+                <h6 className="text-sm font-light">
+                  {data?.building.building?.address}
+                </h6>
+              </div>
             </div>
+            <div className="pb-32 flex flex-col items-end mt-5 w-6/12 px-20">
+              {!orderStarted && (
+              <button onClick={triggerStartOrder} className="btn px-10 py-2 bg-gray-200 rounded-md hover:bg-gray-300 transition-all">
+                주문담기
+              </button>
+              )}
+              {orderStarted && (
+                <div className="flex items-center">
+                  <button onClick={triggerConfirmOrder} className="btn px-10 py-2 bg-gray-200 rounded-md hover:bg-gray-300 transition-all mr-2">
+                    주문하기
+                  </button>
+                  <button
+                    onClick={triggerCancelOrder}
+                    className="btn px-10 py-2 bg-gray-200 rounded-md hover:bg-gray-300 transition-all"
+                  >
+                    주문취소
+                  </button>
+                </div>
+              )}
+              <div className="w-full grid mt-16 md:grid-cols-1 gap-x-5 gap-y-10">
+                {data?.building.assignments?.map((dish, index: number) => (
+                  <Salad
+                    isSelected={isSelected(dish?.salad?.id !== undefined  ? dish.salad.id:0)}
+                    id={dish?.salad?.id !== undefined  ? dish.salad.id:0}
+                    orderStarted={orderStarted}
+                    key={index}
+                    name={dish?.salad?.name !== undefined  ? dish.salad.name:""}
+                    description={dish?.salad?.description !== undefined  ? dish.salad.description:""}
+                    price={dish.salad?.price !== undefined  ? dish.salad.price:0}
+                    isCustomer={true}
+                    options={dish?.salad?.options}
+                    addItemToOrder={addItemToOrder}
+                    removeFromOrder={removeFromOrder}
+                    coverImg={dish?.salad?.photo ?? ""}
+                    >
+                      {
+                      dish.salad?.options?.map((option: { name: string; extra: number | null | undefined; }, index: React.Key | null | undefined) => (
+                        <SaladOption
+                          key={index}
+                          saladId={dish?.salad?.id !== undefined  ? dish.salad.id:0}
+                          isSelected={isOptionSelected(dish?.salad?.id !== undefined  ? dish.salad.id:0, option.name)}
+                          name={option.name}
+                          extra={option.extra}
+                          addOptionToItem={addOptionToItem}
+                          removeOptionFromItem={removeOptionFromItem}
+                        />
+                    ))}
+                    </Salad>
+                ))}
+              </div>
           </div>
-          <div className="container pb-32 flex flex-col items-end mt-20">
-          {!orderStarted && (
-          <button onClick={triggerStartOrder} className="btn px-10">
-            Start Order
-          </button>
-        )}
-        {orderStarted && (
-          <div className="flex items-center">
-            <button onClick={triggerConfirmOrder} className="btn px-10 mr-3">
-              Confirm Order
-            </button>
-            <button
-              onClick={triggerCancelOrder}
-              className="btn px-10 bg-black hover:bg-black"
-            >
-              Cancel Order
-            </button>
-          </div>
-        )}
-            <div className="w-full grid mt-16 md:grid-cols-3 gap-x-5 gap-y-10">
-              {data?.building.building?.menu.map((dish: { id: number; name: string; description: string; price: number; options: any[] | null | undefined; }, index: React.Key | null | undefined) => (
-                <Salad
-                  isSelected={isSelected(dish.id)}
-                  id={dish.id}
-                  orderStarted={orderStarted}
-                  key={index}
-                  name={dish.name}
-                  description={dish.description}
-                  price={dish.price}
-                  isCustomer={true}
-                  options={dish.options}
-                  addItemToOrder={addItemToOrder}
-                  removeFromOrder={removeFromOrder}>
-                    {dish.options?.map((option, index) => (
-                      <SaladOption
-                        key={index}
-                        saladId={dish.id}
-                        isSelected={isOptionSelected(dish.id, option.name)}
-                        name={option.name}
-                        extra={option.extra}
-                        addOptionToItem={addOptionToItem}
-                        removeOptionFromItem={removeOptionFromItem}
-                      />
-                  ))}
-                  </Salad>
-              ))}
-            </div>
           </div>
         </div>
       );

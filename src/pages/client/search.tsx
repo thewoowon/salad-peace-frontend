@@ -38,7 +38,6 @@ export const Search = () => {
   >(SEARCH_BUILDING);
 
   useEffect(() => {
-    console.log(searchTerm);
     if (!state) {
       return navigate("/", { replace: true });
     }

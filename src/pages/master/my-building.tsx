@@ -152,7 +152,8 @@ export const MyBuilding = () => {
                       key={dish.id}
                       name={dish.name}
                       description={dish.description}
-                      price={dish.price}>
+                      price={dish.price}
+                      coverImg={dish.photo ?? ""}>
                         {
 
                         }

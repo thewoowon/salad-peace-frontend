@@ -107,7 +107,6 @@ export const Buildings = () => {
       map.panTo(new maps.LatLng(myCoords.lat, myCoords.lng));
         setMap(map);
         setMaps(maps);
-        console.log(map, maps);
     }
 
     const onSucces = ({ coords: { latitude, longitude } }: GeolocationPosition) => {
@@ -144,8 +143,8 @@ export const Buildings = () => {
           </Helmet>
             <div className="flex justify-center items-center h-96 max-w-screen-xl m-auto my-20">
               <div className="flex justify-center items-center h-full w-6/12">
-                <img src="https://thejobyouhate76.s3.amazonaws.com/parc1.jpeg" className="w-6/12 h-full rounded-xl shadow shadow-md mr-2"></img>
-                <div className="w-6/12 h-full rounded-xl shadow shadow-md relative overflow-hidden">
+                <img src={userData?.me.building?.coverImg ?? ""} className="w-6/12 h-full rounded-xl shadow shadow-md mr-2" alt="hello"></img>
+                <div className="w-6/12 h-full rounded-xl shadow relative overflow-hidden">
                 <GoogleMapReact
                   yesIWantToUseGoogleMapApiInternals
                   onGoogleApiLoaded={onApiLoaded}
@@ -172,7 +171,7 @@ export const Buildings = () => {
               </div>
             </div>
             <div className="h-96 flex justify-center items-center bg-gray-100">
-              <p className="text-4xl text-black ">샐러드피스는 전국 <span className="text-purple-500">107</span>개의 빌딩과 함께하고 있어요<div className=""></div></p>
+              <p className="text-4xl text-black ">샐러드피스는 전국 <span className="text-purple-500">107</span>개의 빌딩과 함께하고 있어요</p>
             </div>
             {!loading && (
                 <div className="max-w-screen-2xl pb-20 mx-auto mt-12">

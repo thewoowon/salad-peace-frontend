@@ -135,7 +135,8 @@ export const MyAreaBuilding = () => {
                       key={salad.id}
                       name={salad.name}
                       description={salad.description}
-                      price={salad.price}>
+                      price={salad.price}
+                      coverImg={salad.photo ?? ""}>
                       </Salad>
                   ))}
                 </div>

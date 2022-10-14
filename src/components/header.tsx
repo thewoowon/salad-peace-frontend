@@ -32,7 +32,7 @@ export const Header: React.FC = () => {
       {
         !data?.me.verified && 
         <div className="bg-gray-600 p-3 text-center text-base text-white">
-          <span >Please verify your email.</span>
+          <span >이메일 인증이 완료되지 않았어요.</span>
         </div>
       }
         <header className="py-8">
@@ -44,8 +44,8 @@ export const Header: React.FC = () => {
                 <input
                 {...register("searchTerm",{required:true,minLength:3})}
                 type="Search"
-                className="input w-3/4 md:w-3/12 border border-gray-500 border-solid rounded-xl p-3"
-                placeholder="Search buildings..."
+                className="input w-3/4 md:w-3/12 border border-gray-500 border-solid rounded-xl p-3 outline-none"
+                placeholder="빌딩 이름 검색"
                 />
             </form>
             <span className="text-xs absolute right-0 flex justify-center items-center">

@@ -9,6 +9,7 @@ interface ISaladProps {
   isCustomer?: boolean;
   orderStarted?: boolean;
   isSelected?: boolean;
+  coverImg:string;
   options?: building_building_building_menu_options[] | null;
   addItemToOrder?: (dishId: number) => void;
   removeFromOrder?: (dishId: number) => void;
@@ -25,6 +26,7 @@ export const Salad: React.FC<ISaladProps> = ({
   options,
   addItemToOrder,
   isSelected,
+  coverImg,
   removeFromOrder,
   children:saladOptions,
 }) => {
@@ -41,33 +43,59 @@ export const Salad: React.FC<ISaladProps> = ({
   return (
     <div
     onClick={onClick}
-    className={` px-8 py-4 border cursor-pointer  transition-all ${
-      isSelected ? "border-gray-800" : " hover:border-gray-800"
+    className={`flex py-4 w-10/12 cursor-pointer  transition-all rounded-md shadow-md ${
+      isSelected ? "border border-purple-500" : "border border-gray-200 transition-transform "
     }`}
   >
-      <div className="mb-5">
-      <h3 className="text-lg font-medium flex items-center">
-          {name}{" "}
-          {orderStarted && (
-            <button
-              className={`ml-3 py-1 px-3 focus:outline-none text-sm  text-white ${
-                isSelected ? "bg-red-500" : " bg-lime-600"
-              }`}
-              onClick={onClick}
-            >
-              {isSelected ? "Remove" : "Add"}
-            </button>
-          )}
-        </h3>
-        <h4 className="font-medium">{description}</h4>
-      </div>
-      <span>${price}</span>
-      {isCustomer && options && options?.length !== 0 && (
+      <div className="flex w-full">
+        <div className="w-5/12 pl-5 pr-3 flex items-center">          
+            <img src={coverImg} className="object-fill w-48 h-52 rounded-xl" alt="샐러드"></img>
+        </div>
+        <div className="w-7/12 pl-3 pr-5 py-3 relative">
+          <div className="pb-2">
+            <p className="text-3xl font-medium flex items-center">
+              {name}{" "}
+              {orderStarted && (
+                <button
+                  className={`ml-3 py-1 px-3 focus:outline-none text-sm  text-white ${
+                    isSelected ? "bg-red-500" : " bg-purple-600"
+                  }`}
+                  onClick={onClick}
+                >
+                  {isSelected ? "삭제" : "추가"}
+                </button>
+              )}
+            </p>
+            <h4 className="font-medium">{description}</h4>
+          </div>
+          <div className="flex w-full relative">
+            <p className="w-6/12">개당 가격</p>
+            <p className="w-6/12 text-right">{price}원</p>
+          </div>
+          <div className="flex w-full relative border-b-2">
+            <p className="w-6/12">현재 수량</p>
+            <p className="w-6/12 text-right">170개</p>
+          </div>
+          <div className="flex w-full relative mt-2 pt-2">
+            <p className="w-6/12">주문 수량</p>
+            <div className="w-6/12 flex justify-end">
+              <div className="bg-gray-300 w-6 shadow-sm rounded-sm flex justify-center items-center">-</div>
+              <div className="bg-white w-6 flex justify-center items-center">{1}</div>
+              <div className="bg-gray-300 w-6 shadow-sm rounded-sm flex justify-center items-center">+</div>
+            </div>
+          </div>
+          <div className="flex w-full relative pt-4">
+            <p className="w-6/12 font-md text-2xl">총 가격</p>
+            <p className="w-6/12 text-right font-bold text-2xl text-green-600">44,000원</p>
+          </div>
+        </div>
+        {isCustomer && options && options?.length !== 0 && (
         <div>
           <h5 className="mt-8 mb-3 font-medium">Salad Options:</h5>
           <div className="grid gap-2  justify-start">{saladOptions}</div>
         </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };

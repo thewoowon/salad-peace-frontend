@@ -107,7 +107,8 @@ export const Login = ()=>{
                     type="password"
                     required={true}
                     placeholder="비밀번호를 입력해주세요." 
-                    className="h-12 rounded-md border px-5 focus:outline-none focus:bg-purple-100 transition-colors"></input>
+                    className="h-12 rounded-md border px-5 focus:outline-none focus:bg-purple-100 transition-colors"
+                    autoComplete="on"></input>
                 {
                     formState.errors.password?.message && (
                         <FormError errorMessage={formState.errors.password?.message}></FormError>
