@@ -83,19 +83,21 @@ export const Building = () => {
     const isSelected = (saladId: number) => {
       return Boolean(getItem(saladId));
     };
-    const addItemToOrder = (saladId: number) => {
+    const addItemToOrder = (saladId: number,quantity:number) => {
       if (isSelected(saladId)) {
         return;
       }
       const createOrderItemInput:CreateOrderItemInput = {
         saladId:saladId,
         // options:[]
-        quantity:1
+        quantity:quantity
       }
+      console.log(createOrderItemInput)
       setOrderItems((current) => [
         createOrderItemInput
         ,...current
       ]);
+      console.log(orderItems)
     };
     const removeFromOrder = (saladId: number) => {
       setOrderItems((current) =>
@@ -183,10 +185,10 @@ export const Building = () => {
     });
     const triggerConfirmOrder = () => {
       if (orderItems.length === 0) {
-        alert("Can't place empty order");
+        alert("주문할 메뉴를 선택해주세요.");
         return;
       }
-      const ok = window.confirm("You are about to place an order");
+      const ok = window.confirm("이대로 주문하시겠습니까?");
       if (ok) {
         createOrderMutation({
           variables: {
@@ -273,9 +275,6 @@ export const Building = () => {
                 )}
               </div>
             </div>
-          </div>
-          <div>
-            Hello
           </div>
         </div>
       );

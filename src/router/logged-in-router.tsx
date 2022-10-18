@@ -21,6 +21,7 @@ import { MyAreaBuildings } from "../pages/manager/my-area-buildings";
 import { AddAreaBuilding } from "../pages/manager/add-area-buildings";
 import { MyAreaBuilding } from "../pages/manager/my-area-building";
 import { AddAreaSalad } from "../pages/manager/add-area-salad";
+import { Billing } from "../pages/client/billing";
 
 const clientRoutes = [
   {
@@ -39,7 +40,10 @@ const clientRoutes = [
     path: "/buildings/:id",
     component: <Building></Building>,
   },
-  
+  {
+    path: "/billing/:order_id",
+    component: <Billing></Billing>,
+  }
 ];
 
 const commonRoutes = [

@@ -1,4 +1,5 @@
-import React, { ReactNode } from "react";
+import { constants } from "buffer";
+import React, { ReactNode,useState } from "react";
 import { building_building_building_menu_options } from "../__generated__/building";
 
 interface ISaladProps {
@@ -11,7 +12,7 @@ interface ISaladProps {
   isSelected?: boolean;
   coverImg:string;
   options?: building_building_building_menu_options[] | null;
-  addItemToOrder?: (dishId: number) => void;
+  addItemToOrder?: (dishId: number,quantity:number) => void;
   removeFromOrder?: (dishId: number) => void;
   children: ReactNode;
 }
@@ -33,13 +34,14 @@ export const Salad: React.FC<ISaladProps> = ({
   const onClick = () => {
     if (orderStarted) {
       if (!isSelected && addItemToOrder) {
-        return addItemToOrder(id);
+        return addItemToOrder(id,count);
       }
       if (isSelected && removeFromOrder) {
         return removeFromOrder(id);
       }
     }
   };
+  const [count,setCount] = useState(0);
   return (
     <div
     onClick={onClick}
@@ -79,14 +81,25 @@ export const Salad: React.FC<ISaladProps> = ({
           <div className="flex w-full relative mt-2 pt-2">
             <p className="w-6/12">주문 수량</p>
             <div className="w-6/12 flex justify-end">
-              <div className="bg-gray-300 w-6 shadow-sm rounded-sm flex justify-center items-center">-</div>
-              <div className="bg-white w-6 flex justify-center items-center">{1}</div>
-              <div className="bg-gray-300 w-6 shadow-sm rounded-sm flex justify-center items-center">+</div>
+              <button onClick={()=>{
+                const minus = count-1
+                if (minus < 0) {
+                  setCount(0)
+                }
+                else{
+                  setCount(minus)
+                }
+              }} className="bg-gray-300 w-6 shadow-sm rounded-sm flex justify-center items-center transition-all hover:bg-gray-200">-</button>
+              <div className="bg-white w-6 flex justify-center items-center">{count}</div>
+              <button onClick={()=>{
+                const plus = count+1
+                setCount(plus)
+              }} className="bg-gray-300 w-6 shadow-sm rounded-sm flex justify-center items-center transition-all hover:bg-gray-200">+</button>
             </div>
           </div>
           <div className="flex w-full relative pt-4">
             <p className="w-6/12 font-md text-2xl">총 가격</p>
-            <p className="w-6/12 text-right font-bold text-2xl text-green-600">44,000원</p>
+            <p className="w-6/12 text-right font-bold text-2xl text-green-600">{price*count}원</p>
           </div>
         </div>
         {isCustomer && options && options?.length !== 0 && (
