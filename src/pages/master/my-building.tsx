@@ -153,10 +153,8 @@ export const MyBuilding = () => {
                       name={dish.name}
                       description={dish.description}
                       price={dish.price}
-                      coverImg={dish.photo ?? ""}>
-                        {
-
-                        }
+                      coverImg={dish.photo ?? ""}
+                      mode="read">
                       </Salad>
                   ))}
                 </div>

@@ -106,11 +106,13 @@ export const MyAreaBuilding = () => {
       <div className="flex">
         <div 
           className="py-48 w-6/12 bg-gray-300 px-20"
-          css={css`
-                  background-image:url('${data?.myAreaBuilding.building?.coverImg}');
-                  background-size:cover;
-                  }
-                `}>
+          style={{backgroundImage: `url(${data?.myAreaBuilding.building?.coverImg})`,backgroundSize:"cover"}}
+          // css={css`
+          //         background-image:url('${data?.myAreaBuilding.building?.coverImg}');
+          //         background-size:cover;
+          //         }
+          //       `}>
+          >
           <div className="bg-white w-12/12 py-8 text-center rounded-md">
               <h4 className="text-4xl mb-3">{data?.myAreaBuilding.building?.name}</h4>
               <h5 className="text-md font-light mb-2">
@@ -119,7 +121,7 @@ export const MyAreaBuilding = () => {
               <h6 className="text-md font-light">
                 {data?.myAreaBuilding.building?.address}에 있어요
               </h6>
-            </div>
+          </div>
         </div>
         <div className="pb-5 flex flex-col w-6/12 px-20">
           <div className="my-5 flex justify-start">
@@ -145,14 +147,15 @@ export const MyAreaBuilding = () => {
                         name={salad.name}
                         description={salad.description}
                         price={salad.price}
-                        coverImg={salad.photo ?? ""}>
+                        coverImg={salad.photo ?? ""}
+                        mode="read">
                         </Salad>
                     ))}
                   </div>
                 )}
           </div>
           <div className="mt-20 mb-10">
-            <h4 className="text-center text-2xl font-medium">판매상품</h4>
+            <h4 className="text-center text-2xl font-medium">판매현황</h4>
             <div className="mt-5">
               <VictoryChart
                 height={500}

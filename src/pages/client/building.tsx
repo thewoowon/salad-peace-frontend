@@ -238,6 +238,7 @@ export const Building = () => {
                     addItemToOrder={addItemToOrder}
                     removeFromOrder={removeFromOrder}
                     coverImg={dish?.salad?.photo ?? ""}
+                    mode="default"
                     >
                       {
                       dish.salad?.options?.map((option: { name: string; extra: number | null | undefined; }, index: React.Key | null | undefined) => (
