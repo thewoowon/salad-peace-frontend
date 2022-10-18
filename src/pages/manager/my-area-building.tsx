@@ -1,5 +1,6 @@
 import { gql, useQuery,useSubscription } from "@apollo/client";
 import React,{useEffect} from "react";
+import { jsx, css } from '@emotion/react'
 import { Helmet } from "react-helmet-async";
 import { Link, useParams,useNavigate } from "react-router-dom";
 import {
@@ -101,89 +102,98 @@ export const MyAreaBuilding = () => {
           {data?.myAreaBuilding.building?.name || "Loading..."} - 샐러드피스
         </title>
         <script src="https://cdn.paddle.com/paddle/paddle.js"></script>
-        <script type="text/javascript">
-          
-        </script>
       </Helmet>
-      <div
-        className="  bg-gray-700  py-28 bg-center bg-cover"
-        style={{
-          backgroundImage: `url(${data?.myAreaBuilding.building?.coverImg})`,
-        }}
-      ></div>
-      <div className="container mt-10">
-        <h2 className="text-4xl font-medium mb-10">
-          {data?.myAreaBuilding.building?.name || "Loading..."}
-        </h2>
-        <Link
-          to={`/buildings/${id}/add-salad`}
-          className=" mr-8 text-white bg-gray-800 py-3 px-10"
-        >
-          Add Salad &rarr;
-        </Link>
-        <span className="cursor-pointer text-white bg-lime-700 py-3 px-10"
-        onClick={openCheckout}>
-          Buy Promotion &rarr;
-        </span>
-        <div className="mt-10">
-          {data?.myAreaBuilding.building?.menu.length === 0 ? (
-            <h4 className="text-xl mb-5">Please upload a dish!</h4>
-            ) : (
-                <div className="grid mt-16 md:grid-cols-3 gap-x-5 gap-y-10">
-                  {data?.myAreaBuilding.building?.menu.map((salad) => (
-                    <Salad
-                      key={salad.id}
-                      name={salad.name}
-                      description={salad.description}
-                      price={salad.price}
-                      coverImg={salad.photo ?? ""}>
-                      </Salad>
-                  ))}
-                </div>
-              )}
+      <div className="flex">
+        <div 
+          className="py-48 w-6/12 bg-gray-300 px-20"
+          css={css`
+                  background-image:url('${data?.myAreaBuilding.building?.coverImg}');
+                  background-size:cover;
+                  }
+                `}>
+          <div className="bg-white w-12/12 py-8 text-center rounded-md">
+              <h4 className="text-4xl mb-3">{data?.myAreaBuilding.building?.name}</h4>
+              <h5 className="text-md font-light mb-2">
+              {data?.myAreaBuilding.building?.category?.name}에 있는 멋진 빌딩
+              </h5>
+              <h6 className="text-md font-light">
+                {data?.myAreaBuilding.building?.address}에 있어요
+              </h6>
+            </div>
         </div>
-        <div className="mt-20 mb-10">
-          <h4 className="text-center text-2xl font-medium">판매상품</h4>
-          <div className="  mt-10">
-            <VictoryChart
-              height={500}
-              theme={VictoryTheme.material}
-              width={window.innerWidth}
-              domainPadding={50}
-              containerComponent={<VictoryVoronoiContainer />}
-            >
-              <VictoryLine
-                labels={({ datum }) => `$${datum.y}`}
-                labelComponent={
-                  <VictoryTooltip
-                    style={{ fontSize: 18 } as any}
-                    renderInPortal
-                    dy={-20}
-                  />
-                }
-                data={data?.myAreaBuilding.building?.orders.map((order) => ({
-                  x: order.createdAt,
-                  y: order.total,
-                }))}
-                interpolation="natural"
-                style={{
-                  data: {
-                    strokeWidth: 5,
-                  },
-                }}
-              />
-              <VictoryAxis
-                tickLabelComponent={<VictoryLabel renderInPortal />}
-                style={{
-                  tickLabels: {
-                    fontSize: 20,
-                  } as any,
-                }}
-                tickFormat={(tick) => new Date(tick).toLocaleDateString("ko")}
-              />
-            </VictoryChart>
-          </div>        
-        </div>
+        <div className="pb-5 flex flex-col w-6/12 px-20">
+          <div className="my-5 flex justify-start">
+            <div>
+              <button onClick={()=>{navigate(`/area-buildings/${id}/add-salad`)}}
+              className="btn px-10 py-2 bg-gray-200 rounded-md hover:bg-gray-300 transition-all m-3">
+                샐러드 추가하기
+              </button>
+              <button onClick={openCheckout}
+              className="btn px-10 py-2 bg-purple-300 rounded-md hover:bg-purple-200 transition-all">
+                프로모션 구매하기
+              </button>
+            </div>
+          </div>
+          <div>
+            {data?.myAreaBuilding.building?.menu.length === 0 ? (
+              <h4 className="text-xl mb-5">샐러드를 추가해주세요.</h4>
+              ) : (
+                  <div className="w-full grid mt-2 md:grid-cols-1 gap-x-5 gap-y-10">
+                    {data?.myAreaBuilding.building?.menu.map((salad) => (
+                      <Salad
+                        key={salad.id}
+                        name={salad.name}
+                        description={salad.description}
+                        price={salad.price}
+                        coverImg={salad.photo ?? ""}>
+                        </Salad>
+                    ))}
+                  </div>
+                )}
+          </div>
+          <div className="mt-20 mb-10">
+            <h4 className="text-center text-2xl font-medium">판매상품</h4>
+            <div className="mt-5">
+              <VictoryChart
+                height={500}
+                theme={VictoryTheme.material}
+                width={window.innerWidth}
+                domainPadding={50}
+                containerComponent={<VictoryVoronoiContainer />}
+              >
+                <VictoryLine
+                  labels={({ datum }) => `$${datum.y}`}
+                  labelComponent={
+                    <VictoryTooltip
+                      style={{ fontSize: 18 } as any}
+                      renderInPortal
+                      dy={-20}
+                    />
+                  }
+                  data={data?.myAreaBuilding.building?.orders.map((order) => ({
+                    x: order.createdAt,
+                    y: order.total,
+                  }))}
+                  interpolation="natural"
+                  style={{
+                    data: {
+                      strokeWidth: 5,
+                    },
+                  }}
+                />
+                <VictoryAxis
+                  tickLabelComponent={<VictoryLabel renderInPortal />}
+                  style={{
+                    tickLabels: {
+                      fontSize: 20,
+                    } as any,
+                  }}
+                  tickFormat={(tick) => new Date(tick).toLocaleDateString("ko")}
+                />
+              </VictoryChart>
+            </div>        
+          </div>
+        </div>          
       </div>
     </div>
   );

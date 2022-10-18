@@ -206,9 +206,9 @@ export const Building = () => {
           </Helmet>
           <div className="flex">
             <div
-              className=" py-48 w-6/12 bg-gray-300 px-20"
+              className="py-48 w-6/12 bg-gray-300 px-20"
               css={css`
-                        background-image:url('https://thejobyouhate76.s3.amazonaws.com/parc1.jpeg');
+                        background-image:url('${data?.building.building?.coverImg}');
                         background-size:cover;
                         }
                       `}>
