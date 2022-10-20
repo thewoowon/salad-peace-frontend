@@ -4,6 +4,7 @@ import {App} from './components/app';
 import reportWebVitals from "./reportWebVitals";
 import { ApolloProvider } from '@apollo/client';
 import "./styles/styles.css";
+import "./styles/util.css";
 import {client} from './apollo';
 import { BrowserRouter } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
