@@ -113,7 +113,7 @@ export const EditProfile = () => {
         <Button
           loading={loading}
           canClick={formState.isValid}
-          actionText="Save Profile"
+          actionText="프로필 저장"
         />
       </form>
       </div>

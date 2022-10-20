@@ -10,7 +10,7 @@ import {
 } from "../../__generated__/createSalad";
 import { MY_AREA_BUILDING_QUERY } from "./my-area-building";
 import { CREATE_SALAD_MUTATION} from "../master/add-salad";
-
+import saladPeace_1 from '../../images/saladPeace_1.svg';
 interface IParams {
   buildingId: string;
 }
@@ -78,66 +78,44 @@ export const AddAreaSalad = () => {
     setValue(`${idToDelete}-optionExtra`, "");
   };
   return (
-    <div className="container flex flex-col items-center mt-52">
+    <div className="min-h-full flex items-center justify-center lg:mt-6 xl:mt-8 2xl:mt-10 relative">
       <Helmet>
         <title>샐러드 주문하기 -샐러드피스</title>
       </Helmet>
-      <h4 className="font-semibold text-2xl mb-3">샐러드 추가</h4>
-      <form
+      <div className="w-full max-w-sm flex flex-col px-5 items-center">
+        <h4 className="font-semibold text-2xl mb-3">샐러드 추가</h4>
+        <form
         onSubmit={handleSubmit(onSubmit)}
         className="grid max-w-screen-sm gap-3 mt-5 w-full mb-5"
       >
         <input
-          className="input"
+          className="h-12 rounded-md border px-5 focus:outline-none focus:bg-purple-100 transition-colors"
           type="text"
-          placeholder="Name"
+          placeholder="샐러드명을 입력해주세요."
           {...register("name",{ required: "이름은 필수입니다." })}
         />
         <input
-          className="input"
+          className="h-12 rounded-md border px-5 focus:outline-none focus:bg-purple-100 transition-colors"
           type="number"
           min={0}
-          placeholder="Price"
+          placeholder="판매가격을 입력해주세요."
           {...register("price",{ required: "가격은 필수입니다." })}
         />
         <input
-          className="input"
+          className="h-12 rounded-md border px-5 focus:outline-none focus:bg-purple-100 transition-colors"
           type="text"
-          placeholder="Description"
+          placeholder="샐러드 설명을 입력해주세요."
           {...register("description",{ required: "상세는 필수입니다." })}
         />
-        <div className="my-10">
-          <h4 className="font-medium  mb-3 text-lg">샐러드 옵션</h4>
-          <span
+        <div className="flex items-center justify-center">
+          <p className="mx-2">샐러드에 옵션이 있나요?&nbsp;&nbsp;{'👉👉' }</p>
+          <button
+            type="button"
             onClick={onAddOptionClick}
-            className=" cursor-pointer text-white bg-gray-900 py-1 px-2 mt-5 bg-"
+            className=" cursor-pointer text-white bg-purple-600 rounded-md py-1 px-2 bg-"
           >
-            샐러드 옵션 추가
-          </span>
-          {optionsNumber.length !== 0 &&
-            optionsNumber.map((id) => (
-              <div key={id} className="mt-5">
-                <input
-                  {...register(`${id}-optionName`)}
-                  className="py-2 px-4 focus:outline-none mr-3 focus:border-gray-600 border-2"
-                  type="text"
-                  placeholder="Option Name"
-                />
-                <input
-                  {...register(`${id}-optionExtra`)}
-                  className="py-2 px-4 focus:outline-none focus:border-gray-600 border-2"
-                  type="number"
-                  min={0}
-                  placeholder="Option Extra"
-                />
-                <span
-                  className="cursor-pointer text-white bg-red-500 ml-3 py-3 px-4 mt-5 bg-"
-                  onClick={() => onDeleteClick(id)}
-                >
-                  삭제
-                </span>
-              </div>
-            ))}
+            옵션 추가
+          </button>
         </div>
         <Button
           loading={loading}
@@ -145,6 +123,35 @@ export const AddAreaSalad = () => {
           actionText="샐러드 생성"
         />
       </form>
-    </div>
+      </div>
+      
+          {optionsNumber.length !== 0 &&
+          <div className="shadow-md rounded-md top-0 p-5">
+            {optionsNumber.map((id) => (
+              <div key={id} className="mt-5 transition-all">
+                <input
+                  {...register(`${id}-optionName`)}
+                  className="py-2 px-4 text-sm focus:outline-none mr-3 focus:border-gray-600 border-2"
+                  type="text"
+                  placeholder="옵션명을 입력해주세요."
+                />
+                <input
+                  {...register(`${id}-optionExtra`)}
+                  className="py-2 px-4 text-sm focus:outline-none focus:border-gray-600 border-2"
+                  type="number"
+                  min={0}
+                  placeholder="옵션 추가금액을 입력해주세요."
+                />
+                <span
+                  className="cursor-pointer text-white bg-purple-500 ml-3 py-3 px-4 mt-5 rounded-md"
+                  onClick={() => onDeleteClick(id)}
+                >
+                  삭제
+                </span>
+              </div>
+            ))}
+            </div>
+            }
+      </div>
   );
 };

@@ -10,6 +10,7 @@ import GoogleMapReact from "google-map-react";
 import { useMe } from "../../hooks/useMe";
 import { useQuantity } from "../../hooks/useQuantity";
 import { css } from '@emotion/react';
+import { useBuildings } from "../../hooks/useBuildings";
 
 // const MY_BUIDING_SALAD_SUBSCRIPTION = gql`
 //   subscription pendingOrders{
@@ -84,6 +85,7 @@ const CustomMarker = ({ text }:IMarkerProps) => (
 export const Buildings = () => {
     const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
     const { data: userData } = useMe();
+    const { data: buildings_none} = useBuildings();
     const [myCoords, setMyCoords] = useState<ICoords>({ lng: 0, lat: 0 });
     const [map, setMap] = useState<google.maps.Map>();
     const [maps, setMaps] = useState<any>();
@@ -171,7 +173,7 @@ export const Buildings = () => {
               </div>
             </div>
             <div className="h-96 flex justify-center items-center bg-gray-100">
-              <p className="text-4xl text-black ">샐러드피스는 전국 <span className="text-purple-500">107</span>개의 빌딩과 함께하고 있어요</p>
+              <p className="text-4xl text-black ">샐러드피스는 전국 <span className="text-purple-500">{buildings_none?.buildings_none.count}</span>개의 빌딩과 함께하고 있어요</p>
             </div>
             {!loading && (
                 <div className="max-w-screen-2xl pb-20 mx-auto mt-12">
