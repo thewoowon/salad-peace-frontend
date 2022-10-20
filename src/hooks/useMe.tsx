@@ -13,6 +13,7 @@ export const ME_QUERY = gql`
         id
         name
         coverImg
+        address
       }
       category{
         id

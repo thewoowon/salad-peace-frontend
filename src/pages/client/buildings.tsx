@@ -74,7 +74,7 @@ interface IDriverProps {
   $hover?: any;
   address: string;
 }
-const Driver: React.FC<IDriverProps> = () => (
+const Driver: React.FC<IDriverProps> = ({address}) => (
   <div>
     <div
       style={{
@@ -86,9 +86,10 @@ const Driver: React.FC<IDriverProps> = () => (
         borderRadius: "50%",
         fontWeight: "bold",
       }}
-      className="text-5xl w-20 hover:scale-110 transform transition ease-in pin3"
+      className="text-5xl w-20 hover:scale-110 transform transition ease-in tooltip"
     >
       🥗
+      <span className="tooltiptext tooltip-top">{address}</span>
     </div>
     <div className="w-20 text-lg bg-purple-500 rounded-lg text-white text-center h-8 flex justify-center items-center">여기에요!</div>
   </div>
@@ -213,7 +214,7 @@ export const Buildings = () => {
                 key: "AIzaSyDKkUZT0Bt7y-uscb-zXebDQbluZ8IlUDY",
               }}
             >
-              <Driver lat={myCoords.lat} lng={myCoords.lng} address={"서울특별시 영등포구 여의대로 108"}></Driver>
+              <Driver lat={myCoords.lat} lng={myCoords.lng} address={userData?.me.building?.address ?? ""}></Driver>
             </GoogleMapReact>
           </div>
         </div>
@@ -260,6 +261,7 @@ export const Buildings = () => {
                     <img
                       src={`${category.coverImg}`}
                       className="w-10/12 h-10/12"
+                      alt="Category"
                     ></img>
                   </div>
                   <span className="mt-1 text-sm text-center font-medium">

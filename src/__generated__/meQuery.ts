@@ -14,6 +14,7 @@ export interface meQuery_me_building {
   id: number;
   name: string;
   coverImg: string | null;
+  address: string;
 }
 
 export interface meQuery_me_category {
