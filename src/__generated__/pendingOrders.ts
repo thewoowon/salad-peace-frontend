@@ -32,6 +32,7 @@ export interface pendingOrders_pendingOrders {
   driver: pendingOrders_pendingOrders_driver | null;
   customer: pendingOrders_pendingOrders_customer | null;
   building: pendingOrders_pendingOrders_building;
+  quantity: number | null;
 }
 
 export interface pendingOrders {

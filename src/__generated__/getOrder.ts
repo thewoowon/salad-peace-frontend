@@ -32,6 +32,7 @@ export interface getOrder_getOrder_order {
   driver: getOrder_getOrder_order_driver | null;
   customer: getOrder_getOrder_order_customer | null;
   building: getOrder_getOrder_order_building;
+  quantity: number | null;
 }
 
 export interface getOrder_getOrder {

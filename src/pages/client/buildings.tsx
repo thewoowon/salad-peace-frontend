@@ -163,10 +163,10 @@ export const Buildings = () => {
 
   useEffect(() => {
     if (subscriptionData?.pendingOrders.id) {
-      // navigate(`/orders/${subscriptionData.pendingOrders.id}`);
-      setCount(count-(subscriptionData.pendingOrders.total ?? 0))
+      navigate(`/`);
+      //setCount(count-(subscriptionData.pendingOrders.quantity ?? 0))
     }
-  }, [subscriptionData, navigate, count]);
+  }, [navigate, subscriptionData]);
 
   useEffect(() => {
     navigator.geolocation.watchPosition(onSucces, onError, {

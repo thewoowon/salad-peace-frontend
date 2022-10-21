@@ -32,4 +32,5 @@ export interface FullOrderParts {
   driver: FullOrderParts_driver | null;
   customer: FullOrderParts_customer | null;
   building: FullOrderParts_building;
+  quantity: number | null;
 }
