@@ -21,6 +21,7 @@ import { css } from "@emotion/react";
 import { useBuildings } from "../../hooks/useBuildings";
 import { PENDING_ORDERS_SUBSCRIPTION } from "../master/my-building";
 import { pendingOrders } from "../../__generated__/pendingOrders";
+import { MutatingDots } from 'react-loader-spinner';
 
 // const MY_BUIDING_SALAD_SUBSCRIPTION = gql`
 //   subscription pendingOrders{
@@ -120,7 +121,7 @@ const CustomMarker = ({ text }: IMarkerProps) => (
 );
 
 export const Buildings = () => {
-  const { data: subscriptionData, loading: boolean } =
+  const { data: subscriptionData, loading:subLoading } =
     useSubscription<pendingOrders>(PENDING_ORDERS_SUBSCRIPTION);
   const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
   const { data: userData } = useMe();
@@ -141,7 +142,8 @@ export const Buildings = () => {
       },
     },
   });
-  const { data: quantity } = useQuantity(0);
+  const { data: quantity,loading:quantityLoading } = useQuantity(0);
+  let total = quantity?.quantity.quantity;
   const onNextPageClick = () => setPage((current) => current + 1);
   const onPrevPageClick = () => setPage((current) => current - 1);
 
@@ -163,8 +165,7 @@ export const Buildings = () => {
 
   useEffect(() => {
     if (subscriptionData?.pendingOrders.id) {
-      navigate(`/`);
-      //setCount(count-(subscriptionData.pendingOrders.quantity ?? 0))
+      navigate(`/orders/${subscriptionData.pendingOrders.id}`);
     }
   }, [navigate, subscriptionData]);
 
@@ -223,7 +224,13 @@ export const Buildings = () => {
             <p className="text-3xl">{`${userData?.me.name}님!`}</p>
             <p className="text-5xl">{`현재 ${userData?.me.building?.name}에`}</p>
             <p className="text-5xl">
-              <span className=" text-red-500">{`${quantity?.quantity.quantity}`}</span>
+              <span className=" text-red-500">
+                {!quantityLoading 
+                 ?
+                  `${total}` 
+                 :
+                 "???"  }
+                </span>
               개의
             </p>
             <p className="text-5xl">샐러드가 남아있어요.</p>
