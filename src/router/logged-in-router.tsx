@@ -43,7 +43,7 @@ const clientRoutes = [
   {
     path: "/billing/:order_id",
     component: <Billing></Billing>,
-  }
+  },
 ];
 
 const commonRoutes = [

@@ -174,7 +174,7 @@ export const Building = () => {
         createOrder: { ok, orderId },
       } = data;
       if (data.createOrder.ok) {
-        navigate(`/orders/${orderId}`);
+        navigate(`/billing/${orderId}`);
       }
     };
     const [createOrderMutation, { loading: placingOrder }] = useMutation<
