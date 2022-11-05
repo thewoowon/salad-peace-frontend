@@ -61,7 +61,6 @@ export interface CreateOrderItemInput {
 export interface CreatePaymentInput {
   transactionId: string;
   buildingId: number;
-  restaurantId: number;
 }
 
 export interface CreateSaladInput {
