@@ -15,19 +15,10 @@ import {
 export const App = () => {
   const isLoggedIn = useReactiveVar(isLoggedInVar);
 
-  const toggleState = atom({
-    key: 'toggleState',
-    default: false,
-  });
-
   return (
       isLoggedIn ? 
-      <RecoilRoot>
-        <LoggedInRouter></LoggedInRouter>
-      </RecoilRoot>
+      <LoggedInRouter></LoggedInRouter>
       :
-      <RecoilRoot>
       <LoggedOutRouter></LoggedOutRouter>
-      </RecoilRoot>
   );
 }

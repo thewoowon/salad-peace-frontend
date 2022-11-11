@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { Timer } from "./timer";
 import logout from "../images/loginOut.svg";
 import editProfile from "../images/edit-profile.svg";
-import { authTokenVar, isLoggedInVar } from "../apollo";
+import { authTokenVar, client, isLoggedInVar } from "../apollo";
 
 interface IFormProps{
   searchTerm:string;
@@ -21,10 +21,11 @@ export const Header: React.FC = () => {
       navigate("/search",{state:searchTerm});
     }
     const onClickHandler = () => {
-      localStorage.setItem("salad-token", "");
-      authTokenVar("");
+      localStorage.removeItem("salad-token");
+      authTokenVar(null);
       isLoggedInVar(false);
       navigate("/",{replace:true});
+      client.resetStore();
     }
 
     return (
