@@ -92,12 +92,10 @@ export const Building = () => {
         // options:[]
         quantity:quantity
       }
-      console.log(createOrderItemInput)
       setOrderItems((current) => [
         createOrderItemInput
         ,...current
       ]);
-      console.log(orderItems)
     };
     const removeFromOrder = (saladId: number) => {
       setOrderItems((current) =>

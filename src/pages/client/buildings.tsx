@@ -6,7 +6,7 @@ import {
 } from "../../__generated__/buildingsPageQuery";
 import { Building } from "../../components/building";
 import { useForm } from "react-hook-form";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, redirect } from "react-router-dom";
 import {
   CATEGORY_FRAGMENT,
   BUILDING_FRAGMENT,
@@ -21,7 +21,7 @@ import { css } from "@emotion/react";
 import { useBuildings } from "../../hooks/useBuildings";
 import { PENDING_ORDERS_SUBSCRIPTION } from "../master/my-building";
 import { pendingOrders } from "../../__generated__/pendingOrders";
-import { MutatingDots } from 'react-loader-spinner';
+import { MutatingDots } from "react-loader-spinner";
 
 // const MY_BUIDING_SALAD_SUBSCRIPTION = gql`
 //   subscription pendingOrders{
@@ -75,7 +75,7 @@ interface IDriverProps {
   $hover?: any;
   address: string;
 }
-const Driver: React.FC<IDriverProps> = ({address}) => (
+const Driver: React.FC<IDriverProps> = ({ address }) => (
   <div>
     <div
       style={{
@@ -92,7 +92,9 @@ const Driver: React.FC<IDriverProps> = ({address}) => (
       🥗
       <span className="tooltiptext tooltip-top">{address}</span>
     </div>
-    <div className="w-20 text-lg bg-purple-500 rounded-lg text-white text-center h-8 flex justify-center items-center">여기에요!</div>
+    <div className="w-20 text-lg bg-purple-500 rounded-lg text-white text-center h-8 flex justify-center items-center">
+      여기에요!
+    </div>
   </div>
 );
 
@@ -121,12 +123,12 @@ const CustomMarker = ({ text }: IMarkerProps) => (
 );
 
 export const Buildings = () => {
-  const { data: subscriptionData, loading:subLoading } =
+  const { data: subscriptionData, loading: subLoading } =
     useSubscription<pendingOrders>(PENDING_ORDERS_SUBSCRIPTION);
   const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
   const { data: userData } = useMe();
   const { data: buildings_none } = useBuildings();
-  const [count,setCount] = useState(buildings_none?.buildings_none.count ?? 0);
+  const [count, setCount] = useState(buildings_none?.buildings_none.count ?? 0);
   const [myCoords, setMyCoords] = useState<ICoords>({ lng: 0, lat: 0 });
   const [map, setMap] = useState<google.maps.Map>();
   const [maps, setMaps] = useState<any>();
@@ -142,8 +144,11 @@ export const Buildings = () => {
       },
     },
   });
-  const { data: quantity,loading:quantityLoading } = useQuantity(0);
+  const { data: quantity, loading: quantityLoading } = useQuantity(
+    userData?.me.building?.id ?? 0
+  );
   let total = quantity?.quantity.quantity;
+  const [substract,setSubstract] = useState(0);
   const onNextPageClick = () => setPage((current) => current + 1);
   const onPrevPageClick = () => setPage((current) => current - 1);
 
@@ -164,8 +169,8 @@ export const Buildings = () => {
   };
 
   useEffect(() => {
-    if (subscriptionData?.pendingOrders.id) {
-      navigate(`/orders/${subscriptionData.pendingOrders.id}`);
+    if (subscriptionData?.pendingOrders.id) { 
+      setSubstract(subscriptionData.pendingOrders.quantity ?? 0)
     }
   }, [navigate, subscriptionData]);
 
@@ -215,7 +220,11 @@ export const Buildings = () => {
                 key: "AIzaSyDKkUZT0Bt7y-uscb-zXebDQbluZ8IlUDY",
               }}
             >
-              <Driver lat={myCoords.lat} lng={myCoords.lng} address={userData?.me.building?.address ?? ""}></Driver>
+              <Driver
+                lat={myCoords.lat}
+                lng={myCoords.lng}
+                address={userData?.me.building?.address ?? ""}
+              ></Driver>
             </GoogleMapReact>
           </div>
         </div>
@@ -225,12 +234,8 @@ export const Buildings = () => {
             <p className="text-5xl">{`현재 ${userData?.me.building?.name}에`}</p>
             <p className="text-5xl">
               <span className=" text-red-500">
-                {!quantityLoading 
-                 ?
-                  `${total}` 
-                 :
-                 "???"  }
-                </span>
+                {  !quantityLoading ? `${(total ?? 0) - substract}` : "???"}
+              </span>
               개의
             </p>
             <p className="text-5xl">샐러드가 남아있어요.</p>
