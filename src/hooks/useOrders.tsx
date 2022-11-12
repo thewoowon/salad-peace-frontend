@@ -2,8 +2,8 @@ import { gql, useQuery } from "@apollo/client";
 import { myOrderQuery } from "../__generated__/myOrderQuery";
 
 export const GET_ORDER_BY_ID_QUERY = gql`
-  query myOrderQuery{
-    myOrder{
+  query myOrderQuery($input:GetOrderInput!){
+    myOrder(input:$input){
       order {
         total
         items{
@@ -15,17 +15,27 @@ export const GET_ORDER_BY_ID_QUERY = gql`
         quantity
       }
       salads{
-        id
-        price
-        name
-        photo
-        description
+        quantity
+        salad{
+          name
+          photo
+          price
+          description
+        }
       }
     }
   }
 `;
 
 
-export const useMyOrder = () => {
-  return useQuery<myOrderQuery>(GET_ORDER_BY_ID_QUERY);
+export const useMyOrder = (order_id:number) => {
+  return useQuery<myOrderQuery>(GET_ORDER_BY_ID_QUERY,
+    {
+      variables: {
+        input: {
+          id: order_id,
+        },
+      },
+    }
+  );
 };

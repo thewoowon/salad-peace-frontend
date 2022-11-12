@@ -3,6 +3,8 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+import { GetOrderInput } from "./globalTypes";
+
 // ====================================================
 // GraphQL query operation: myOrderQuery
 // ====================================================
@@ -25,13 +27,18 @@ export interface myOrderQuery_myOrder_order {
   quantity: number | null;
 }
 
-export interface myOrderQuery_myOrder_salads {
+export interface myOrderQuery_myOrder_salads_salad {
   __typename: "Salad";
-  id: number;
-  price: number;
   name: string;
   photo: string | null;
+  price: number;
   description: string;
+}
+
+export interface myOrderQuery_myOrder_salads {
+  __typename: "OrderItem";
+  quantity: number;
+  salad: myOrderQuery_myOrder_salads_salad;
 }
 
 export interface myOrderQuery_myOrder {
@@ -42,4 +49,8 @@ export interface myOrderQuery_myOrder {
 
 export interface myOrderQuery {
   myOrder: myOrderQuery_myOrder;
+}
+
+export interface myOrderQueryVariables {
+  input: GetOrderInput;
 }
