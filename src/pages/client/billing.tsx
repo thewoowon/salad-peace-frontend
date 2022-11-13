@@ -18,9 +18,9 @@ export const Billing = () => {
                 <h5 className="font-semibold mb-3">내역을 확인해주세요.</h5>
                 <div className="w-full justify-center">
                     {
-                        myOrders?.myOrder.salads && myOrders?.myOrder.salads.map((salad) => {
+                        myOrders?.myOrder.salads && myOrders?.myOrder.salads.map((salad,iter) => {
                             return (
-                                <div className="flex h-28 p-3 items-center rounded-md shadow-lg border-2 border-gray-50">
+                                <div key={iter} className="flex h-28 p-3 items-center rounded-md shadow-lg border-2 border-gray-50">
                                     <div className="w-2/12 flex items-center justify-center">
                                         <input type={"checkbox"}  className=" checked:bg-purple-500 "></input>
                                     </div>

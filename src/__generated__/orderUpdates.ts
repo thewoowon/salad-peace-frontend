@@ -33,6 +33,8 @@ export interface orderUpdates_orderUpdates {
   customer: orderUpdates_orderUpdates_customer | null;
   building: orderUpdates_orderUpdates_building;
   quantity: number | null;
+  createdAt: any;
+  updatedAt: any;
 }
 
 export interface orderUpdates {

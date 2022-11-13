@@ -33,6 +33,8 @@ export interface pendingOrders_pendingOrders {
   customer: pendingOrders_pendingOrders_customer | null;
   building: pendingOrders_pendingOrders_building;
   quantity: number | null;
+  createdAt: any;
+  updatedAt: any;
 }
 
 export interface pendingOrders {

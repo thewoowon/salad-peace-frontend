@@ -33,6 +33,8 @@ export interface getOrder_getOrder_order {
   customer: getOrder_getOrder_order_customer | null;
   building: getOrder_getOrder_order_building;
   quantity: number | null;
+  createdAt: any;
+  updatedAt: any;
 }
 
 export interface getOrder_getOrder {

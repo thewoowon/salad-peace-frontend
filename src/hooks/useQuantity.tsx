@@ -17,5 +17,6 @@ export const useQuantity = (id:number) => {
         id: id,
       },
     },
+    pollInterval:500
   });
 };

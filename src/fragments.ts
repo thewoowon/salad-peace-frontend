@@ -65,6 +65,8 @@ export const FULL_ORDER_FRAGMENT = gql`
       name
     }
     quantity
+    createdAt
+    updatedAt
   }
 `;
 

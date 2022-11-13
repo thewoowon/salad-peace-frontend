@@ -33,6 +33,8 @@ export interface cookedOrders_cookedOrders {
   customer: cookedOrders_cookedOrders_customer | null;
   building: cookedOrders_cookedOrders_building;
   quantity: number | null;
+  createdAt: any;
+  updatedAt: any;
 }
 
 export interface cookedOrders {

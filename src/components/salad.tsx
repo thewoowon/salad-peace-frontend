@@ -16,6 +16,7 @@ interface ISaladProps {
   removeFromOrder?: (dishId: number) => void;
   children: ReactNode;
   mode: "default" | "read";
+  left?:number;
 }
 
 export const Salad: React.FC<ISaladProps> = ({
@@ -32,6 +33,7 @@ export const Salad: React.FC<ISaladProps> = ({
   removeFromOrder,
   children:saladOptions,
   mode,
+  left
 }) => {
   const onClick = () => {
     if (orderStarted) {

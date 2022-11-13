@@ -33,4 +33,6 @@ export interface FullOrderParts {
   customer: FullOrderParts_customer | null;
   building: FullOrderParts_building;
   quantity: number | null;
+  createdAt: any;
+  updatedAt: any;
 }

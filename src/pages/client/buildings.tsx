@@ -1,5 +1,5 @@
 import { gql, useQuery, useSubscription } from "@apollo/client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   buildingsPageQuery,
   buildingsPageQueryVariables,
@@ -20,8 +20,9 @@ import { useQuantity } from "../../hooks/useQuantity";
 import { css } from "@emotion/react";
 import { useBuildings } from "../../hooks/useBuildings";
 import { PENDING_ORDERS_SUBSCRIPTION } from "../master/my-building";
-import { pendingOrders } from "../../__generated__/pendingOrders";
+import { pendingOrders, pendingOrders_pendingOrders } from "../../__generated__/pendingOrders";
 import { MutatingDots } from "react-loader-spinner";
+import editProfile from "../../images/edit-profile.svg";
 
 // const MY_BUIDING_SALAD_SUBSCRIPTION = gql`
 //   subscription pendingOrders{
@@ -144,11 +145,13 @@ export const Buildings = () => {
       },
     },
   });
-  const { data: quantity, loading: quantityLoading } = useQuantity(
-    userData?.me.building?.id ?? 0
-  );
-  let total = quantity?.quantity.quantity;
-  const [substract,setSubstract] = useState(0);
+  const {
+    data: quantity,
+    loading: quantityLoading,
+    // refetch: quantityRefetching,
+  } = useQuantity(userData?.me.building?.id ?? 0);
+  // const [substract, setSubstract] = useState(0);
+  const [nowOrders,setNowOrders] = useState<pendingOrders_pendingOrders[]>([])
   const onNextPageClick = () => setPage((current) => current + 1);
   const onPrevPageClick = () => setPage((current) => current - 1);
 
@@ -169,10 +172,17 @@ export const Buildings = () => {
   };
 
   useEffect(() => {
-    if (subscriptionData?.pendingOrders.id) { 
-      setSubstract(subscriptionData.pendingOrders.quantity ?? 0)
+    if (subscriptionData?.pendingOrders) {
+      for (let index = 0; index < nowOrders.length; index++) {
+        const element = nowOrders[index];
+        if (subscriptionData.pendingOrders.id == element.id){
+          return
+        }
+      }
+      nowOrders.push(subscriptionData.pendingOrders);
+      setNowOrders(nowOrders);
     }
-  }, [navigate, subscriptionData]);
+  }, [subscriptionData,nowOrders]);
 
   useEffect(() => {
     navigator.geolocation.watchPosition(onSucces, onError, {
@@ -182,7 +192,7 @@ export const Buildings = () => {
   useEffect(() => {
     if (map && maps) {
       map.panTo(new google.maps.LatLng(myCoords.lat, myCoords.lng));
-      map.setZoom(16);
+      map.setZoom(16); 
       /* const geocoder = new google.maps.Geocoder();
             geocoder.geocode(
               {
@@ -194,19 +204,20 @@ export const Buildings = () => {
             ); */
     }
   }, [myCoords.lat, myCoords.lng, map, maps]);
+
   return (
     <div>
       <Helmet>
         <title>샐러드에 평화를 - 샐러드피스</title>
       </Helmet>
       <div className="flex justify-center items-center h-96 max-w-screen-xl m-auto my-20">
-        <div className="flex justify-center items-center h-full w-6/12">
+        <div className="flex justify-center items-center h-full w-4/12">
           <img
             src={userData?.me.building?.coverImg ?? ""}
-            className="w-6/12 h-full rounded-xl shadow shadow-md mr-2"
+            className="w-6/12 h-80 rounded-xl shadow-md mr-2"
             alt="hello"
           ></img>
-          <div className="w-6/12 h-full rounded-xl shadow relative overflow-hidden">
+          <div className="w-6/12 h-80 rounded-xl shadow relative overflow-hidden">
             <GoogleMapReact
               yesIWantToUseGoogleMapApiInternals
               onGoogleApiLoaded={onApiLoaded}
@@ -228,13 +239,15 @@ export const Buildings = () => {
             </GoogleMapReact>
           </div>
         </div>
-        <div className="flex justify-center items-center h-full w-6/12">
+        <div className="flex justify-center items-center h-full w-5/12">
           <div>
             <p className="text-3xl">{`${userData?.me.name}님!`}</p>
             <p className="text-5xl">{`현재 ${userData?.me.building?.name}에`}</p>
             <p className="text-5xl">
               <span className=" text-red-500">
-                {  !quantityLoading ? `${(total ?? 0) - substract}` : "???"}
+                {!quantityLoading
+                  ? `${(quantity?.quantity.quantity ?? 0)}`
+                  : "???"}
               </span>
               개의
             </p>
@@ -248,6 +261,26 @@ export const Buildings = () => {
               바로 주문하기
             </button>
           </div>
+        </div>
+        <div className="flex justify-center h-full w-3/12 overflow-scroll">
+          <ol className="w-full h-9/12 p-3">
+            {
+              nowOrders?.map((value,iter) => {
+                return(
+                  <li key={iter} className="h-28 shadow-lg rounded-lg p-5 flex justify-center items-center">
+                    <div className="w-9/12">
+                      <p>{value.quantity}{"개 주문! "}{"감사합니다😊"}</p>
+                      <p>{value.customer?.email}</p>
+                      <p>{value.createdAt.substring(0, 10)}</p>
+                    </div>
+                    <div className="w-3/12 flex justify-end items-center">
+                      <img className="w-full" src={editProfile} alt="person"></img>
+                    </div>
+                  </li>
+                )
+              })
+            }
+          </ol>
         </div>
       </div>
       <div className="h-96 flex justify-center items-center bg-gray-100">
