@@ -31,7 +31,7 @@
 
 ## Login Page
 - Json Web Token을 활용한 로그인
-- useVar() Hook을 활용해 관리
+- makeVar() Hook을 활용 전역 관리
 <img width="1680" alt="스크린샷 2022-11-22 오전 12 29 38" src="https://user-images.githubusercontent.com/60413257/203093982-b13de07c-63f9-4eb8-a566-7d80559a2d4e.png">
 
 ## Create User Page
