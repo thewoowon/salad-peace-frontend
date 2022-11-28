@@ -208,7 +208,7 @@ export const Buildings = () => {
   return (
     <div>
       <Helmet>
-        <title>샐러드에 평화를 - 샐러드피스</title>
+        <title>샐러드 생활에 평화를 - 샐러드피스</title>
       </Helmet>
       <div className="flex justify-center items-center h-96 max-w-screen-xl m-auto my-20">
         <div className="flex justify-center items-center h-full w-4/12">

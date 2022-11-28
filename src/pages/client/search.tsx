@@ -53,7 +53,7 @@ export const Search = () => {
   return (
     <h1>
       <Helmet>
-        <title>샐러드에 평화를 - 샐러드피스</title>
+        <title>샐러드 생활에 평화를 - 샐러드피스</title>
       </Helmet>
       Search Page!
     </h1>
