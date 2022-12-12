@@ -4,7 +4,7 @@ module.exports = {
         tagName:"gql",
         service:{
             name:"salad-peace-backend",
-            url:"http://localhost:4000/graphql"
+            url:"https://salad-peace.herokuapp.com/graphql"
         }
     }
 }

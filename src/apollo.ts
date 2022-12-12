@@ -20,7 +20,7 @@ const wsLink = new GraphQLWsLink(
   createClient({
     url:
       process.env.NODE_ENV === "production"
-        ? "ws://salad-peace-back-end.herokuapp.com/graphql"
+        ? "ws://salad-peace.herokuapp.com/graphql"
         : "ws://localhost:4000/graphql",
     connectionParams: {
       "x-jwt": authTokenVar() || "",
@@ -38,7 +38,7 @@ const wsLink = new GraphQLWsLink(
 const httpLink = createHttpLink({
   uri:
     process.env.NODE_ENV === "production"
-      ? "https://salad-peace-back-end.herokuapp.com/graphql"
+      ? "https://salad-peace.herokuapp.com/graphql"
       : "http://localhost:4000/graphql",
 });
 
