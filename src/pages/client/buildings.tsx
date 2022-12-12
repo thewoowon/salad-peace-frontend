@@ -1,17 +1,14 @@
 import { gql, useQuery, useSubscription } from "@apollo/client";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import {
   buildingsPageQuery,
   buildingsPageQueryVariables,
 } from "../../__generated__/buildingsPageQuery";
 import { Building } from "../../components/building";
-import { useForm } from "react-hook-form";
-import { useNavigate, Link, redirect } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import {
   CATEGORY_FRAGMENT,
   BUILDING_FRAGMENT,
-  MY_BUILDING_SALAD_FRAGMENT,
-  FULL_ORDER_FRAGMENT,
 } from "../../fragments";
 import { Helmet } from "react-helmet-async";
 import GoogleMapReact from "google-map-react";
@@ -21,7 +18,6 @@ import { css } from "@emotion/react";
 import { useBuildings } from "../../hooks/useBuildings";
 import { PENDING_ORDERS_SUBSCRIPTION } from "../master/my-building";
 import { pendingOrders, pendingOrders_pendingOrders } from "../../__generated__/pendingOrders";
-import { MutatingDots } from "react-loader-spinner";
 import editProfile from "../../images/edit-profile.svg";
 
 // const MY_BUIDING_SALAD_SUBSCRIPTION = gql`
@@ -124,12 +120,10 @@ const CustomMarker = ({ text }: IMarkerProps) => (
 );
 
 export const Buildings = () => {
-  const { data: subscriptionData, loading: subLoading } =
+  const { data: subscriptionData } =
     useSubscription<pendingOrders>(PENDING_ORDERS_SUBSCRIPTION);
-  const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
   const { data: userData } = useMe();
   const { data: buildings_none } = useBuildings();
-  const [count, setCount] = useState(buildings_none?.buildings_none.count ?? 0);
   const [myCoords, setMyCoords] = useState<ICoords>({ lng: 0, lat: 0 });
   const [map, setMap] = useState<google.maps.Map>();
   const [maps, setMaps] = useState<any>();
@@ -175,7 +169,7 @@ export const Buildings = () => {
     if (subscriptionData?.pendingOrders) {
       for (let index = 0; index < nowOrders.length; index++) {
         const element = nowOrders[index];
-        if (subscriptionData.pendingOrders.id == element.id){
+        if (subscriptionData.pendingOrders.id === element.id){
           return
         }
       }
@@ -293,7 +287,7 @@ export const Buildings = () => {
         </p>
       </div>
       {!loading && (
-        <div className="max-w-screen-2xl pb-20 mx-auto mt-12">
+        <div className="max-w-screen-xl pb-20 mx-auto mt-12">
           <div className="flex justify-around max-w-sm mx-auto ">
             {data?.allCategories.categories?.map((category, index) => (
               <Link
@@ -316,7 +310,7 @@ export const Buildings = () => {
               </Link>
             ))}
           </div>
-          <div className="grid mt-10 md:grid-cols-4 gap-x-5 gap-y-10">
+          <div className="grid mt-10 lg:grid-cols-4 md:grid-cols-3 xs:grid-cols-2 grid-cols-1 gap-x-5 gap-y-10">
             {data?.buildings.results?.map((building) => (
               <Building
                 id={building.id + ""}

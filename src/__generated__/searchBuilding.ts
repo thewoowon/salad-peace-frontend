@@ -6,37 +6,37 @@
 import { SearchBuildingInput } from "./globalTypes";
 
 // ====================================================
-// GraphQL query operation: searchRestaurant
+// GraphQL query operation: searchBuilding
 // ====================================================
 
-export interface searchRestaurant_searchBuilding_buildings_category {
+export interface searchBuilding_searchBuilding_buildings_category {
   __typename: "Category";
   name: string;
 }
 
-export interface searchRestaurant_searchBuilding_buildings {
+export interface searchBuilding_searchBuilding_buildings {
   __typename: "Building";
   id: number;
   name: string;
-  category: searchRestaurant_searchBuilding_buildings_category | null;
+  category: searchBuilding_searchBuilding_buildings_category | null;
   address: string;
   isPromoted: boolean;
   coverImg: string | null;
 }
 
-export interface searchRestaurant_searchBuilding {
+export interface searchBuilding_searchBuilding {
   __typename: "SearchBuildingOutput";
   ok: boolean;
   error: string | null;
   totalPages: number | null;
   totalResults: number | null;
-  buildings: searchRestaurant_searchBuilding_buildings[] | null;
+  buildings: searchBuilding_searchBuilding_buildings[] | null;
 }
 
-export interface searchRestaurant {
-  searchBuilding: searchRestaurant_searchBuilding;
+export interface searchBuilding {
+  searchBuilding: searchBuilding_searchBuilding;
 }
 
-export interface searchRestaurantVariables {
+export interface searchBuildingVariables {
   input: SearchBuildingInput;
 }

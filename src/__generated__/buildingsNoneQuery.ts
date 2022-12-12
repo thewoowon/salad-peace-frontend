@@ -7,12 +7,19 @@
 // GraphQL query operation: buildingsNoneQuery
 // ====================================================
 
+export interface buildingsNoneQuery_buildings_none_results_category {
+  __typename: "Category";
+  id: number;
+}
+
 export interface buildingsNoneQuery_buildings_none_results {
   __typename: "Building";
   id: number;
   name: string;
   coverImg: string | null;
   address: string;
+  buildingCode: string;
+  category: buildingsNoneQuery_buildings_none_results_category | null;
 }
 
 export interface buildingsNoneQuery_buildings_none {

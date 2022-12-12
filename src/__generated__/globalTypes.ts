@@ -38,6 +38,7 @@ export interface CreateAccountInput {
   email: string;
   password: string;
   role: UserRole;
+  floor?: number | null;
 }
 
 export interface CreateBuildingInput {

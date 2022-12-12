@@ -9,6 +9,10 @@ export const BUILDINGS_NONE_QUERY = gql`
         name
         coverImg
         address
+        buildingCode
+        category {
+          id
+        }
       }
       count
     }

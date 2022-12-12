@@ -20,7 +20,6 @@ export const CATEGORY_FRAGMENT = gql`
     coverImg
     slug
     buildingCount
-    # restaurantCount
   }
 `;
 
