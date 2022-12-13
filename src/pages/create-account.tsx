@@ -222,7 +222,7 @@ export const CreateAccount = () => {
                 setOpenPostcode(!openPostcode);
               }}
             >
-              빌딩 나의 찾기
+              나의 빌딩 찾기
             </button>
             {/* <Address toggle={openPostcode} setToggle={setOpenPostcode}></Address> */}
           </div>
